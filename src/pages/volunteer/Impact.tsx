@@ -2,18 +2,17 @@ import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
-import Button from '@/components/ui/Button'
+import EmptyState from '@/components/ui/EmptyState'
 import { useScrollReveal, fadeUp, staggerContainer } from '@/hooks/useScrollReveal'
 
 const hoursData = [
-  { month: 'Jan', hours: 18 },
-  { month: 'Feb', hours: 22 },
-  { month: 'Mar', hours: 16 },
-  { month: 'Apr', hours: 28 },
-  { month: 'May', hours: 20 },
-  { month: 'Jun', hours: 25 },
-  { month: 'Jul', hours: 14 },
+  { month: 'Jan', hours: 0 },
+  { month: 'Feb', hours: 0 },
+  { month: 'Mar', hours: 0 },
+  { month: 'Apr', hours: 0 },
+  { month: 'May', hours: 0 },
+  { month: 'Jun', hours: 0 },
+  { month: 'Jul', hours: 0 },
   { month: 'Aug', hours: 0 },
   { month: 'Sep', hours: 0 },
   { month: 'Oct', hours: 0 },
@@ -22,33 +21,10 @@ const hoursData = [
 ]
 
 const impactMetrics = [
-  { label: 'People Helped', value: '342', icon: '🤝' },
-  { label: 'Events Attended', value: '14', icon: '📅' },
-  { label: 'Communities Served', value: '7', icon: '🏘' },
-  { label: 'Skills Acquired', value: '5', icon: '🎓' },
-]
-
-const certificates = [
-  {
-    id: 1,
-    title: 'Gold Volunteer Certificate',
-    description: 'Awarded for logging 500+ volunteer hours.',
-    level: 'Gold',
-    earned: true,
-    date: '2026-06-15',
-    hours: 167,
-    target: 500,
-  },
-  {
-    id: 2,
-    title: 'Platinum Volunteer Certificate',
-    description: 'Awarded for logging 1000+ volunteer hours.',
-    level: 'Platinum',
-    earned: false,
-    date: null,
-    hours: 167,
-    target: 1000,
-  },
+  { label: 'People Helped', value: '0', icon: '🤝' },
+  { label: 'Events Attended', value: '0', icon: '📅' },
+  { label: 'Communities Served', value: '0', icon: '🏘' },
+  { label: 'Skills Acquired', value: '0', icon: '🎓' },
 ]
 
 export default function VolunteerImpact() {
@@ -142,67 +118,17 @@ export default function VolunteerImpact() {
         </motion.div>
 
         <motion.div
-          variants={staggerContainer}
+          variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="space-y-4"
         >
-          <motion.div variants={fadeUp}>
-            <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)]">
-              Certificates
-            </h3>
-          </motion.div>
-          {certificates.map((cert) => (
-            <motion.div key={cert.id} variants={fadeUp}>
-              <Card hover>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-14 h-14 rounded-sm flex items-center justify-center flex-shrink-0 ${
-                      cert.earned
-                        ? 'bg-gradient-to-br from-gold-400 to-gold-600 text-navy-900'
-                        : 'bg-navy-100 dark:bg-navy-800 text-navy-400 dark:text-white/30'
-                    }`}>
-                      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-navy-900 dark:text-white">{cert.title}</h4>
-                      <p className="text-sm text-navy-500 dark:text-white/50">{cert.description}</p>
-                      <div className="flex items-center gap-3 mt-2">
-                        <div className="flex-1 max-w-xs h-2 bg-navy-100 dark:bg-navy-800 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gold-500 rounded-full transition-all duration-1000"
-                            style={{ width: `${Math.min((cert.hours / cert.target) * 100, 100)}%` }}
-                          />
-                        </div>
-                        <span className="text-xs text-navy-400 dark:text-white/40">
-                          {cert.hours}/{cert.target} hours
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    {cert.earned ? (
-                      <Badge variant="success" size="md">
-                        <span className="mr-1">✓</span> Earned
-                      </Badge>
-                    ) : (
-                      <Badge variant="default" size="md">
-                        In Progress
-                      </Badge>
-                    )}
-                    {cert.earned && (
-                      <Button size="sm" variant="outline">
-                        Download
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+          <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)] mb-4">
+            Certificates
+          </h3>
+          <Card>
+            <EmptyState title="No certificates earned yet" description="Keep volunteering to earn certificates for your achievements." />
+          </Card>
         </motion.div>
       </div>
     </>

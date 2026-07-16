@@ -18,9 +18,9 @@ export default function HomePage() {
     <>
       <Helmet>
         <title>SCPHD — Peace, Justice & Human Dignity | Humanitarian NGO</title>
-        <meta name="description" content="SCPHD delivers measurable humanitarian impact across 47 countries through peace education, healthcare, emergency relief, and community development programs." />
+        <meta name="description" content="SCPHD delivers measurable humanitarian impact through peace education, healthcare, emergency relief, and community development programs." />
         <meta property="og:title" content="SCPHD — Peace, Justice & Human Dignity" />
-        <meta property="og:description" content="Delivering measurable humanitarian impact across 47 countries through peace education, healthcare, and community development." />
+        <meta property="og:description" content="Delivering measurable humanitarian impact through peace education, healthcare, and community development." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://scphd.org" />
       </Helmet>

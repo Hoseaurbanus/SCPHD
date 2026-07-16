@@ -49,15 +49,13 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-white/50 leading-relaxed">
-              Building peace and advancing humanitarian development across 47+ countries worldwide.
+              Building peace and advancing humanitarian development worldwide.
             </p>
             <div className="flex gap-3 pt-2">
               {['facebook', 'twitter', 'linkedin', 'instagram'].map((social) => (
                 <a
                   key={social}
-                  href={`https://${social}.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
                   className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-gold-400 hover:border-gold-500/50 hover:bg-gold-500/10 transition-all"
                 >
                   <span className="text-xs uppercase">{social[0]}</span>
@@ -95,19 +93,19 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/50">
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                123 Peace Avenue, Springfield, IL 62701
+                To be updated
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                info@scphd.org
+                To be updated
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                +1 (555) 123-4567
+                To be updated
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-400 mt-0.5">&#9679;</span>
-                Emergency: +1 (555) 999-0000
+                To be updated
               </li>
             </ul>
           </div>

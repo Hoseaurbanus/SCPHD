@@ -4,25 +4,14 @@ import { Helmet } from 'react-helmet-async'
 import { cn } from '@/utils/cn'
 import { formatCurrency } from '@/utils/helpers'
 import Button from '@/components/ui/Button'
-import Badge from '@/components/ui/Badge'
-import { DONATION_CAMPAIGNS } from '@/utils/constants'
+import EmptyState from '@/components/ui/EmptyState'
 
 const presetAmounts = [25, 50, 100, 250, 500, 1000]
-
-const impactLabels: Record<number, string> = {
-  25: 'Provides emergency food for a family for one week',
-  50: 'Covers school supplies for 2 children for a full year',
-  100: 'Trains a community health worker for one month',
-  250: 'Provides clean water access for a family of 4 for a year',
-  500: 'Funds a mobile clinic visit to a remote village',
-  1000: 'Sponsors a peace education workshop for 50 students',
-}
 
 const steps = ['Campaign', 'Amount', 'Details', 'Payment', 'Success']
 
 export default function DonatePage() {
   const [step, setStep] = useState(0)
-  const [campaign, setCampaign] = useState('')
   const [amount, setAmount] = useState(100)
   const [customAmount, setCustomAmount] = useState('')
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>('one-time')
@@ -33,7 +22,6 @@ export default function DonatePage() {
   const bgY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
 
   const effectiveAmount = customAmount ? Number(customAmount) : amount
-  const impactText = impactLabels[effectiveAmount] || (effectiveAmount >= 1000 ? 'Funds an entire school program for one month' : 'Provides life-saving humanitarian support')
 
   const nextStep = () => setStep(s => Math.min(s + 1, steps.length - 1))
   const prevStep = () => setStep(s => Math.max(s - 1, 0))
@@ -46,13 +34,13 @@ export default function DonatePage() {
     <>
       <Helmet>
         <title>Donate — SCPHD | Make a Difference Today</title>
-        <meta name="description" content="Support SCPHD's humanitarian programs. Your donation provides emergency relief, education, healthcare, and peacebuilding across 47 countries. 96¢ of every dollar goes to programs." />
+        <meta name="description" content="Support SCPHD's humanitarian programs. Your donation provides emergency relief, education, healthcare, and peacebuilding." />
       </Helmet>
 
       {/* Hero */}
       <section className="relative h-[40vh] min-h-[320px] overflow-hidden bg-navy-950 flex items-center">
         <motion.div className="absolute inset-0" style={{ y: bgY }}>
-          <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=900&fit=crop&auto=format" alt="Donate" className="w-full h-full object-cover" />
+          <div className="w-full h-full bg-gradient-to-br from-navy-800 to-navy-950" />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/80 to-navy-900/40" />
         <div className="absolute inset-0 lines-bg opacity-30" />
@@ -71,9 +59,6 @@ export default function DonatePage() {
             Your Gift Creates<br />
             <em className="not-italic gradient-text">Lasting Change</em>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="text-white/60 text-lg mt-6 max-w-xl leading-relaxed">
-            96¢ of every dollar goes directly to our programs. Overhead is covered by institutional grants.
-          </motion.p>
         </div>
       </section>
 
@@ -106,7 +91,7 @@ export default function DonatePage() {
           )}
 
           <AnimatePresence mode="wait">
-            {/* Step 0: Campaign Selection */}
+            {/* Step 0: No campaigns available */}
             {step === 0 && (
               <motion.div
                 key="step-0"
@@ -116,37 +101,10 @@ export default function DonatePage() {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
                 className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm p-8"
               >
-                <h2 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-2xl font-bold mb-2">Choose a Campaign</h2>
-                <p className="text-slate-500 dark:text-white/45 text-sm mb-8">Select where you'd like your donation to make an impact.</p>
-
-                <div className="space-y-3">
-                  {DONATION_CAMPAIGNS.map((c) => (
-                    <motion.button
-                      key={c.id}
-                      onClick={() => setCampaign(c.id)}
-                      whileHover={{ x: 4 }}
-                      whileTap={{ scale: 0.98 }}
-                      className={cn(
-                        'w-full text-left p-5 rounded-sm border-2 transition-all duration-300',
-                        campaign === c.id
-                          ? 'border-gold-500 bg-gold-50 dark:bg-gold-500/10 shadow-lg shadow-gold-500/10'
-                          : 'border-navy-100 dark:border-navy-700 hover:border-navy-300 dark:hover:border-navy-600'
-                      )}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: c.color }} />
-                        <span className="text-navy-900 dark:text-white font-semibold text-sm">{c.name}</span>
-                        {campaign === c.id && <span className="ml-auto text-gold-500 text-xs font-bold">✓ Selected</span>}
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
-
-                <div className="mt-8 flex justify-end">
-                  <Button variant="primary" size="md" onClick={nextStep} disabled={!campaign}>
-                    Continue →
-                  </Button>
-                </div>
+                <EmptyState
+                  title="No active donation campaigns"
+                  description="Campaigns will appear here when created by administrators."
+                />
               </motion.div>
             )}
 
@@ -179,7 +137,6 @@ export default function DonatePage() {
                       )}
                     >
                       {f === 'one-time' ? 'One-Time' : 'Monthly'}
-                      {f === 'monthly' && <span className="ml-1.5 text-[10px] opacity-70">Save 10%</span>}
                     </motion.button>
                   ))}
                 </div>
@@ -214,21 +171,6 @@ export default function DonatePage() {
                     className="w-full pl-8 pr-4 py-3.5 border border-navy-200 dark:border-navy-700 rounded-sm text-navy-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/25 text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all bg-white dark:bg-navy-800"
                   />
                 </div>
-
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={effectiveAmount}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm px-5 py-4 mb-8"
-                  >
-                    <span className="text-gold-600 dark:text-gold-400 text-sm">
-                      <strong className="text-gold-700 dark:text-gold-300">{formatCurrency(effectiveAmount)}</strong> {impactText}
-                    </span>
-                  </motion.div>
-                </AnimatePresence>
 
                 <div className="flex justify-between">
                   <Button variant="ghost" size="md" onClick={prevStep}>← Back</Button>
@@ -323,10 +265,6 @@ export default function DonatePage() {
 
                 {/* Order summary */}
                 <div className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm p-5 mb-6">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-slate-500 dark:text-white/40 text-sm">Campaign</span>
-                    <span className="text-navy-900 dark:text-white text-sm font-semibold">{DONATION_CAMPAIGNS.find(c => c.id === campaign)?.name || 'Where Most Needed'}</span>
-                  </div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-slate-500 dark:text-white/40 text-sm">Frequency</span>
                     <span className="text-navy-900 dark:text-white text-sm font-semibold capitalize">{frequency}</span>
@@ -426,11 +364,6 @@ export default function DonatePage() {
                   <p className="text-slate-400 dark:text-white/35 text-sm mb-8">
                     A tax-deductible receipt has been sent to <strong className="text-navy-900 dark:text-white">{formData.email || 'your email'}</strong>.
                   </p>
-                </motion.div>
-
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm p-6 max-w-sm mx-auto mb-8">
-                  <div className="text-gold-500 font-[family-name:var(--font-display)] text-2xl font-bold number-glow mb-1">Your Impact</div>
-                  <p className="text-slate-600 dark:text-white/50 text-sm leading-relaxed">{impactText}</p>
                 </motion.div>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">

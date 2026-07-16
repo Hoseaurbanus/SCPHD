@@ -3,26 +3,26 @@ import { motion } from 'framer-motion'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { PieChart, Pie, Cell, Legend } from 'recharts'
 import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
+import EmptyState from '@/components/ui/EmptyState'
 import Button from '@/components/ui/Button'
 import { useScrollReveal, fadeUp, staggerContainer } from '@/hooks/useScrollReveal'
-import { formatCurrency, formatDate } from '@/utils/helpers'
+import { formatCurrency } from '@/utils/helpers'
 
 const stats = [
-  { label: 'Total Donations', value: '$284,500', change: '+12.3% vs last month', icon: '💰', trend: 'up' },
-  { label: 'Active Volunteers', value: '156', change: '+8 this month', icon: '👥', trend: 'up' },
-  { label: 'Active Programs', value: '12', change: '3 launching soon', icon: '🎯', trend: 'neutral' },
-  { label: 'Beneficiaries', value: '4,820', change: '+340 this quarter', icon: '🤝', trend: 'up' },
+  { label: 'Total Donations', value: '$0', icon: '💰' },
+  { label: 'Active Volunteers', value: '0', icon: '👥' },
+  { label: 'Active Programs', value: '0', icon: '🎯' },
+  { label: 'Beneficiaries', value: '0', icon: '🤝' },
 ]
 
 const revenueData = [
-  { month: 'Jan', revenue: 18500 },
-  { month: 'Feb', revenue: 22000 },
-  { month: 'Mar', revenue: 19800 },
-  { month: 'Apr', revenue: 28500 },
-  { month: 'May', revenue: 24000 },
-  { month: 'Jun', revenue: 31000 },
-  { month: 'Jul', revenue: 26500 },
+  { month: 'Jan', revenue: 0 },
+  { month: 'Feb', revenue: 0 },
+  { month: 'Mar', revenue: 0 },
+  { month: 'Apr', revenue: 0 },
+  { month: 'May', revenue: 0 },
+  { month: 'Jun', revenue: 0 },
+  { month: 'Jul', revenue: 0 },
   { month: 'Aug', revenue: 0 },
   { month: 'Sep', revenue: 0 },
   { month: 'Oct', revenue: 0 },
@@ -31,18 +31,10 @@ const revenueData = [
 ]
 
 const campaignSplit = [
-  { name: 'Emergency Relief', value: 95000, color: '#ef4444' },
-  { name: 'Education', value: 82000, color: '#3b82f6' },
-  { name: 'Clean Water', value: 62000, color: '#06b6d4' },
-  { name: 'Where Needed', value: 45500, color: '#C49A2E' },
-]
-
-const recentDonations = [
-  { id: 1, donor: 'James Wilson', amount: 500, campaign: 'Education', date: '2026-07-15', status: 'completed' },
-  { id: 2, donor: 'Sarah Chen', amount: 250, campaign: 'Clean Water', date: '2026-07-15', status: 'completed' },
-  { id: 3, donor: 'Michael Brown', amount: 1000, campaign: 'Emergency Relief', date: '2026-07-14', status: 'completed' },
-  { id: 4, donor: 'Emily Davis', amount: 150, campaign: 'Where Most Needed', date: '2026-07-14', status: 'completed' },
-  { id: 5, donor: 'Robert Taylor', amount: 750, campaign: 'Education', date: '2026-07-13', status: 'pending' },
+  { name: 'Emergency Relief', value: 0, color: '#ef4444' },
+  { name: 'Education', value: 0, color: '#3b82f6' },
+  { name: 'Clean Water', value: 0, color: '#06b6d4' },
+  { name: 'Where Needed', value: 0, color: '#C49A2E' },
 ]
 
 export default function AdminOverview() {
@@ -81,9 +73,6 @@ export default function AdminOverview() {
                 <div className="text-2xl mb-2">{stat.icon}</div>
                 <div className="text-2xl font-bold text-navy-900 dark:text-white">{stat.value}</div>
                 <div className="text-sm text-navy-500 dark:text-white/50">{stat.label}</div>
-                <div className={`text-xs mt-1 ${stat.trend === 'up' ? 'text-emerald-500' : 'text-navy-400 dark:text-white/40'}`}>
-                  {stat.change}
-                </div>
               </Card>
             </motion.div>
           ))}
@@ -156,32 +145,7 @@ export default function AdminOverview() {
               </h3>
               <Button size="sm" variant="ghost">View All</Button>
             </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-navy-100 dark:border-navy-800">
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-navy-500 dark:text-white/40 uppercase tracking-wider">Donor</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-navy-500 dark:text-white/40 uppercase tracking-wider">Amount</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-navy-500 dark:text-white/40 uppercase tracking-wider">Campaign</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-navy-500 dark:text-white/40 uppercase tracking-wider">Date</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-navy-500 dark:text-white/40 uppercase tracking-wider">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentDonations.map((d) => (
-                    <tr key={d.id} className="border-b border-navy-50 dark:border-navy-800/50 hover:bg-navy-50 dark:hover:bg-navy-800/30 transition-colors">
-                      <td className="py-3 px-4 text-sm font-medium text-navy-900 dark:text-white">{d.donor}</td>
-                      <td className="py-3 px-4 text-sm font-semibold text-navy-900 dark:text-white">{formatCurrency(d.amount)}</td>
-                      <td className="py-3 px-4 text-sm text-navy-500 dark:text-white/50">{d.campaign}</td>
-                      <td className="py-3 px-4 text-sm text-navy-400 dark:text-white/40">{formatDate(d.date)}</td>
-                      <td className="py-3 px-4">
-                        <Badge variant={d.status === 'completed' ? 'success' : 'warning'} size="sm">{d.status}</Badge>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <EmptyState title="No donations yet" description="Donations will appear here once they are recorded." />
           </Card>
         </motion.div>
       </div>

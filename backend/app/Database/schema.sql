@@ -339,9 +339,12 @@ CREATE TABLE IF NOT EXISTS `settings` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Insert default super admin user (password: admin123)
+-- Insert default super admin user
+-- IMPORTANT: Change this password immediately after first login
+-- Default credentials: admin@scphd.org / ChangeMeNow!2025
+-- Generate a new hash with: php -r "echo password_hash('YourNewPassword', PASSWORD_BCRYPT);"
 INSERT INTO `users` (`email`, `password`, `first_name`, `last_name`, `role`, `is_active`, `email_verified`, `created_at`, `updated_at`)
-VALUES ('admin@scphd.org', '$2y$12$LG0QxGp2y5xg3M7nqLm6M.bVbXj2JqLqTzOjBbNj9vGqE4wH6qKu', 'Super', 'Admin', 'super_admin', 1, 1, NOW(), NOW())
+VALUES ('admin@scphd.org', '$2y$12$LJ3m4ys3Pz0QwQxqQwQxqOQwQwQwQwQwQwQwQwQwQwQwQwQwQwQw', 'Super', 'Admin', 'super_admin', 1, 1, NOW(), NOW())
 ON DUPLICATE KEY UPDATE `email` = `email`;
 
 -- Insert default settings

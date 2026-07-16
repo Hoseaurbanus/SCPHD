@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import Card from '@/components/ui/Card'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
-import { useScrollReveal, fadeUp, staggerContainer } from '@/hooks/useScrollReveal'
+import { useScrollReveal, fadeUp } from '@/hooks/useScrollReveal'
 
 interface SettingsForm {
   siteName: string
@@ -29,16 +29,16 @@ export default function AdminSettings() {
     formState: { errors },
   } = useForm<SettingsForm>({
     defaultValues: {
-      siteName: 'SCPHD - Springfield Center for Peace & Human Development',
-      siteDescription: 'Empowering communities through education, healthcare, and sustainable development programs worldwide.',
-      contactEmail: 'info@scphd.org',
-      contactPhone: '+1 (555) 123-4567',
-      contactAddress: '123 Peace Avenue, Springfield, IL 62701',
-      donationEmail: 'donate@scphd.org',
-      supportEmail: 'support@scphd.org',
-      facebookUrl: 'https://facebook.com/scphd',
-      twitterUrl: 'https://twitter.com/scphd',
-      instagramUrl: 'https://instagram.com/scphd',
+      siteName: '',
+      siteDescription: '',
+      contactEmail: '',
+      contactPhone: '',
+      contactAddress: '',
+      donationEmail: '',
+      supportEmail: '',
+      facebookUrl: '',
+      twitterUrl: '',
+      instagramUrl: '',
     },
   })
 
@@ -80,6 +80,7 @@ export default function AdminSettings() {
               <div className="space-y-4">
                 <Input
                   label="Organization Name"
+                  placeholder="Enter organization name"
                   {...register('siteName', { required: 'Name is required' })}
                   error={errors.siteName?.message}
                 />
@@ -87,6 +88,7 @@ export default function AdminSettings() {
                   <label className="block text-sm font-medium text-navy-900 dark:text-white mb-1.5">Description</label>
                   <textarea
                     {...register('siteDescription')}
+                    placeholder="Enter organization description"
                     rows={3}
                     className="w-full px-4 py-2.5 rounded-sm border bg-white text-navy-900 placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-gold-500/50 focus:border-gold-500 transition-all duration-200 dark:bg-navy-900 dark:text-white dark:border-navy-700 border-navy-200 dark:border-navy-700 resize-none"
                   />
@@ -104,28 +106,33 @@ export default function AdminSettings() {
                 <Input
                   label="Contact Email"
                   type="email"
+                  placeholder="contact@example.com"
                   {...register('contactEmail', { required: 'Email is required' })}
                   error={errors.contactEmail?.message}
                 />
                 <Input
                   label="Phone Number"
                   type="tel"
+                  placeholder="+1 (555) 000-0000"
                   {...register('contactPhone')}
                 />
                 <div className="sm:col-span-2">
                   <Input
                     label="Address"
+                    placeholder="Enter address"
                     {...register('contactAddress')}
                   />
                 </div>
                 <Input
                   label="Donations Email"
                   type="email"
+                  placeholder="donate@example.com"
                   {...register('donationEmail')}
                 />
                 <Input
                   label="Support Email"
                   type="email"
+                  placeholder="support@example.com"
                   {...register('supportEmail')}
                 />
               </div>

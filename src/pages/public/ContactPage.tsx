@@ -3,9 +3,8 @@ import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'fra
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { cn } from '@/utils/cn'
 import Button from '@/components/ui/Button'
-import Badge from '@/components/ui/Badge'
+import EmptyState from '@/components/ui/EmptyState'
 import { contactSchema, type ContactFormData } from '@/utils/validators'
 import { CONTACT_SUBJECTS } from '@/utils/constants'
 
@@ -16,24 +15,7 @@ const quickContacts = [
   { title: 'Donor Support', description: 'Questions about your donations', icon: '💝', action: 'mailto:donors@scphd.org', detail: 'donors@scphd.org' },
 ]
 
-const offices = [
-  { city: 'Springfield', country: 'United States', address: '1200 Peace Boulevard, Suite 400', phone: '+1 (555) 234-5678', type: 'Global HQ' },
-  { city: 'Nairobi', country: 'Kenya', address: 'Westlands Business Park, Tower B', phone: '+254 20 345 678', type: 'Africa Regional' },
-  { city: 'Amman', country: 'Jordan', address: '3rd Circle, Al-Kindi Street 14', phone: '+962 6 461 2345', type: 'Middle East Regional' },
-  { city: 'Geneva', country: 'Switzerland', address: 'Rue de la Paix 22, 1202', phone: '+41 22 345 6789', type: 'Europe Liaison' },
-]
-
-const faqs = [
-  { question: 'How is my donation used?', answer: '96¢ of every dollar donated goes directly to our programs. The remaining 4¢ covers essential administrative costs, which are largely covered by institutional grants. We publish detailed financial reports annually.' },
-  { question: 'Is my donation tax-deductible?', answer: 'Yes. SCPHD is a registered 501(c)(3) nonprofit organization. All donations are tax-deductible to the extent allowed by law. You will receive an instant receipt via email.' },
-  { question: 'How can I volunteer with SCPHD?', answer: 'We welcome volunteers with diverse skills. Visit our Volunteer page to browse open positions or contact us at volunteers@scphd.org. We offer both field-based and remote volunteering opportunities.' },
-  { question: 'Can I make a recurring donation?', answer: 'Absolutely. During the donation process, select "Monthly" to set up a recurring donation. Monthly donors save 10% on processing fees and receive exclusive impact reports.' },
-  { question: 'How can my organization partner with SCPHD?', answer: 'We partner with governments, corporations, foundations, and other NGOs. Contact our Partnerships team at partners@scphd.org to discuss collaboration opportunities.' },
-  { question: 'Where does SCPHD operate?', answer: 'SCPHD currently operates in 47 countries across Africa, the Middle East, South Asia, Southeast Asia, Eastern Europe, and the Americas. Our headquarters is in Springfield, with regional offices in Nairobi, Amman, and Geneva.' },
-]
-
 export default function ContactPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [submitted, setSubmitted] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
   const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
@@ -56,13 +38,13 @@ export default function ContactPage() {
     <>
       <Helmet>
         <title>Contact Us — SCPHD | Get in Touch</title>
-        <meta name="description" content="Contact SCPHD for general inquiries, media requests, partnerships, or donor support. Our offices span Springfield, Nairobi, Amman, and Geneva." />
+        <meta name="description" content="Contact SCPHD for general inquiries, media requests, partnerships, or donor support." />
       </Helmet>
 
       {/* Hero */}
       <section className="relative h-[40vh] min-h-[320px] overflow-hidden bg-navy-950 flex items-center">
         <motion.div className="absolute inset-0" style={{ y: bgY }}>
-          <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=900&fit=crop&auto=format" alt="Contact" className="w-full h-full object-cover" />
+          <div className="w-full h-full bg-gradient-to-br from-navy-800 to-navy-950" />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/80 to-navy-900/40" />
         <div className="absolute inset-0 lines-bg opacity-30" />
@@ -251,25 +233,10 @@ export default function ContactPage() {
             </motion.h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {offices.map((office, i) => (
-              <motion.div
-                key={office.city}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                whileHover={{ y: -6 }}
-                className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm p-6"
-              >
-                <Badge variant="info" size="sm">{office.type}</Badge>
-                <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-xl font-bold mt-3 mb-1">{office.city}</h3>
-                <p className="text-slate-400 dark:text-white/35 text-xs mb-3">{office.country}</p>
-                <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed mb-3">{office.address}</p>
-                <p className="text-gold-600 dark:text-gold-400 text-sm font-semibold">{office.phone}</p>
-              </motion.div>
-            ))}
-          </div>
+          <EmptyState
+            title="Office locations coming soon"
+            description="Office locations will be listed here."
+          />
         </div>
       </section>
 
@@ -293,47 +260,10 @@ export default function ContactPage() {
             </motion.h2>
           </div>
 
-          <div className="space-y-3">
-            {faqs.map((faq, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 group"
-                >
-                  <span className="text-navy-900 dark:text-white font-semibold text-sm group-hover:text-gold-600 dark:group-hover:text-gold-400 transition-colors">{faq.question}</span>
-                  <motion.div
-                    animate={{ rotate: openFaq === i ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-slate-400 dark:text-white/30 flex-shrink-0"
-                  >
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
-                  </motion.div>
-                </button>
-                <AnimatePresence>
-                  {openFaq === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-5 border-t border-navy-100 dark:border-navy-800">
-                        <p className="text-slate-500 dark:text-white/45 text-sm leading-relaxed pt-4">{faq.answer}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
+          <EmptyState
+            title="FAQs coming soon"
+            description="Frequently asked questions will be available soon."
+          />
         </div>
       </section>
     </>

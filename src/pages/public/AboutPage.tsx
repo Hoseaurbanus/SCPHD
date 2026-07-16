@@ -1,11 +1,7 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { useScrollReveal, fadeUp, fadeIn, slideLeft, slideRight, staggerContainer, staggerFast } from '@/hooks/useScrollReveal'
-import { cn } from '@/utils/cn'
-import Button from '@/components/ui/Button'
-import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
+import EmptyState from '@/components/ui/EmptyState'
 
 const coreValues = [
   {
@@ -71,26 +67,6 @@ const coreValues = [
   },
 ]
 
-const timeline = [
-  { year: '2005', title: 'Foundation', description: 'SCPHD founded in Springfield with a mission to bridge peace, justice, and human dignity in post-conflict regions.' },
-  { year: '2008', title: 'First Country Program', description: 'Launched our inaugural program in Northern Uganda, reaching 3,200 beneficiaries in the first year.' },
-  { year: '2011', title: 'Global Expansion', description: 'Expanded operations to 12 countries across Africa and the Middle East, establishing permanent field offices.' },
-  { year: '2014', title: 'Peace Education Initiative', description: 'Launched our flagship education program, training 50,000 students in conflict resolution and civic engagement.' },
-  { year: '2017', title: '$50M Milestone', description: 'Surpassed $50 million in total funds deployed, with 96% going directly to programs.' },
-  { year: '2020', title: 'Pandemic Response', description: 'Mobilized emergency COVID-19 response across 28 countries, supporting 1.2M vulnerable individuals.' },
-  { year: '2023', title: '47 Countries', description: 'Reached operations in 47 countries with 380+ active programs and 2.1M lives impacted.' },
-  { year: '2025', title: 'Vision 2030', description: 'Launched our strategic roadmap to impact 5 million lives by 2030 through scalable, community-led programs.' },
-]
-
-const leadership = [
-  { name: 'Dr. Katherine Mensah', role: 'Executive Director', bio: 'Former UNHCR senior advisor with 20+ years in humanitarian leadership.', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&auto=format' },
-  { name: 'James Okonkwo', role: 'Deputy Director, Programs', bio: 'Oxford-trained development economist specializing in post-conflict reconstruction.', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&auto=format' },
-  { name: 'Dr. Fatima Al-Rashidi', role: 'Director of Research', bio: 'Leading authority on peace education measurement and impact evaluation.', image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&auto=format' },
-  { name: 'Sarah Mitchell', role: 'Director of Development', bio: 'Former European Commission peace program director with deep institutional partnerships.', image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&auto=format' },
-  { name: 'Dr. Amara Diallo', role: 'Chief Medical Officer', bio: 'Physician and public health expert who led mobile clinic programs across the Sahel.', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&auto=format' },
-  { name: 'David Nakamura', role: 'CFO & Head of Operations', bio: 'CPA with 15 years in nonprofit financial management and regulatory compliance.', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&auto=format' },
-]
-
 function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
@@ -108,43 +84,13 @@ function TimelineSection() {
           className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] font-bold leading-tight mb-16"
           style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
         >
-          Two Decades of<br />
-          <em className="not-italic text-navy-600 dark:text-gold-400">Impact</em>
+          Our Journey
         </motion.h2>
 
-        <div className="relative">
-          <div className="absolute left-4 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-gold-500/50 via-gold-500/20 to-transparent" />
-
-          <div className="space-y-12">
-            {timeline.map((item, i) => {
-              const itemRef = useRef<HTMLDivElement>(null)
-              const itemInView = useInView(itemRef, { once: true, margin: '-50px' })
-              const isLeft = i % 2 === 0
-              return (
-                <motion.div
-                  key={item.year}
-                  ref={itemRef}
-                  initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-                  animate={itemInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                  className={cn('relative flex items-start gap-8 md:gap-0', isLeft ? 'md:flex-row' : 'md:flex-row-reverse')}
-                >
-                  <div className="hidden md:block md:w-1/2" />
-
-                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 w-3 h-3 bg-gold-500 rounded-full border-4 border-white dark:border-navy-950 z-10 mt-6" />
-
-                  <div className="md:w-1/2 md:pl-12 ml-12 md:ml-0">
-                    <div className="bg-cream-50 dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm p-6 hover:shadow-lg transition-shadow duration-300">
-                      <div className="text-gold-500 font-[family-name:var(--font-display)] text-3xl font-bold mb-2">{item.year}</div>
-                      <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-2">{item.title}</h3>
-                      <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
-        </div>
+        <EmptyState
+          title="Timeline coming soon"
+          description="Our organizational milestones and history will be displayed here."
+        />
       </div>
     </section>
   )
@@ -165,13 +111,13 @@ export default function AboutPage() {
     <>
       <Helmet>
         <title>About Us — SCPHD | Peace, Justice & Human Dignity</title>
-        <meta name="description" content="Learn about SCPHD's mission, vision, core values, and two decades of humanitarian impact across 47 countries." />
+        <meta name="description" content="Learn about SCPHD's mission, vision, and core values for humanitarian impact and peacebuilding." />
       </Helmet>
 
       {/* Hero */}
       <section className="relative h-[50vh] min-h-[400px] overflow-hidden bg-navy-950 flex items-center">
         <motion.div className="absolute inset-0" style={{ y: bgY }}>
-          <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=900&fit=crop&auto=format" alt="About SCPHD" className="w-full h-full object-cover" />
+          <div className="w-full h-full bg-gradient-to-br from-navy-800 to-navy-950" />
         </motion.div>
         <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/80 to-navy-900/40" />
         <div className="absolute inset-0 lines-bg opacity-30" />
@@ -191,7 +137,7 @@ export default function AboutPage() {
             <em className="not-italic gradient-text">Human Dignity</em>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} className="text-white/60 text-lg mt-6 max-w-xl leading-relaxed">
-            Since 2005, we have worked at the intersection of peacebuilding, humanitarian aid, and community development — delivering measurable, lasting change.
+            SCPHD is committed to peace and humanitarian development, working at the intersection of peacebuilding, humanitarian aid, and community development.
           </motion.p>
         </div>
       </section>
@@ -230,10 +176,6 @@ export default function AboutPage() {
               <p className="text-slate-600 dark:text-white/55 text-base leading-relaxed mb-6">
                 We envision a world where conflict is resolved through dialogue, where every community has access to quality healthcare and education, and where the most vulnerable are protected and empowered.
               </p>
-              <div className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm p-6">
-                <div className="text-gold-500 font-[family-name:var(--font-display)] text-5xl font-bold mb-2 number-glow">2030</div>
-                <p className="text-navy-900 dark:text-white font-semibold text-sm">Our Vision 2030 goal: Impact 5 million lives through scalable, community-led programs across 60 countries.</p>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -315,40 +257,10 @@ export default function AboutPage() {
             </motion.p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {leadership.map((person, i) => {
-              const personRef = useRef<HTMLDivElement>(null)
-              const personInView = useInView(personRef, { once: true, margin: '-50px' })
-              return (
-                <motion.div
-                  key={person.name}
-                  ref={personRef}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={personInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                  whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                  className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm overflow-hidden group"
-                >
-                  <div className="relative h-64 bg-navy-100 overflow-hidden">
-                    <motion.img
-                      src={person.image}
-                      alt={person.name}
-                      className="w-full h-full object-cover"
-                      whileHover={{ scale: 1.06 }}
-                      transition={{ duration: 0.7 }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 via-transparent to-transparent" />
-                  </div>
-                  <div className="p-6">
-                    <motion.div className="h-0.5 bg-gold-500 mb-4 origin-left" initial={{ scaleX: 0 }} animate={personInView ? { scaleX: 1 } : {}} transition={{ duration: 0.6, delay: i * 0.08 + 0.3 }} />
-                    <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-1">{person.name}</h3>
-                    <div className="text-gold-500 text-xs font-bold tracking-widest uppercase mb-3">{person.role}</div>
-                    <p className="text-slate-500 dark:text-white/40 text-sm leading-relaxed">{person.bio}</p>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
+          <EmptyState
+            title="Team information coming soon"
+            description="Our leadership team profiles will be available here once published by administrators."
+          />
         </div>
       </section>
     </>

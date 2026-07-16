@@ -1,54 +1,24 @@
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
+import EmptyState from '@/components/ui/EmptyState'
 import Button from '@/components/ui/Button'
 import { useScrollReveal, fadeUp, staggerContainer } from '@/hooks/useScrollReveal'
-import { formatCurrency, formatDate } from '@/utils/helpers'
+import { formatCurrency } from '@/utils/helpers'
 
 const stats = [
-  { label: 'Total Given', value: '$4,850', change: '+$250 this month', icon: '💰' },
-  { label: 'This Year', value: '$1,200', change: '60% of goal', icon: '📅' },
-  { label: 'Programs Supported', value: '3', change: '1 new', icon: '🎯' },
-  { label: 'Lives Impacted', value: '234', change: '+48 this quarter', icon: '🤝' },
-]
-
-const suggestedPrograms = [
-  {
-    id: 1,
-    title: 'Clean Water Initiative',
-    description: 'Providing clean drinking water to communities in need.',
-    progress: 72,
-    raised: 36000,
-    goal: 50000,
-    category: 'Environment',
-  },
-  {
-    id: 2,
-    title: 'Education for Refugees',
-    description: 'Supporting education programs for displaced children.',
-    progress: 45,
-    raised: 27000,
-    goal: 60000,
-    category: 'Education',
-  },
-  {
-    id: 3,
-    title: 'Emergency Relief Fund',
-    description: 'Rapid response to humanitarian crises.',
-    progress: 88,
-    raised: 44000,
-    goal: 50000,
-    category: 'Emergency Relief',
-  },
+  { label: 'Total Given', value: '$0', icon: '💰' },
+  { label: 'This Year', value: '$0', icon: '📅' },
+  { label: 'Programs Supported', value: '0', icon: '🎯' },
+  { label: 'Lives Impacted', value: '0', icon: '🤝' },
 ]
 
 export default function DonorDashboard() {
   const { ref, isInView } = useScrollReveal()
 
-  const annualGoal = 2000
-  const annualGiven = 1200
-  const annualPercentage = Math.round((annualGiven / annualGoal) * 100)
+  const annualGoal = 0
+  const annualGiven = 0
+  const annualPercentage = 0
 
   return (
     <>
@@ -69,10 +39,10 @@ export default function DonorDashboard() {
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <div className="flex-1 text-center md:text-left">
                   <h2 className="text-2xl font-bold text-white font-[family-name:var(--font-display)]">
-                    Welcome back, James!
+                    Welcome back!
                   </h2>
                   <p className="text-white/60 mt-1">
-                    Thank you for your generous support. Your contributions are making a real difference.
+                    Thank you for your support. Your contributions are making a real difference.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4 justify-center md:justify-start">
                     <Button>Make a Gift</Button>
@@ -92,7 +62,7 @@ export default function DonorDashboard() {
                           strokeLinecap="round" strokeDasharray={2 * Math.PI * 50}
                           className="text-gold-500"
                           initial={{ strokeDashoffset: 2 * Math.PI * 50 }}
-                          animate={{ strokeDashoffset: 2 * Math.PI * 50 * (1 - annualPercentage / 100) }}
+                          animate={{ strokeDashoffset: 2 * Math.PI * 50 }}
                           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                         />
                       </svg>
@@ -123,7 +93,6 @@ export default function DonorDashboard() {
                 <div className="text-2xl mb-2">{stat.icon}</div>
                 <div className="text-2xl font-bold text-navy-900 dark:text-white">{stat.value}</div>
                 <div className="text-sm text-navy-500 dark:text-white/50">{stat.label}</div>
-                <div className="text-xs text-emerald-500 mt-1">{stat.change}</div>
               </Card>
             </motion.div>
           ))}
@@ -133,27 +102,12 @@ export default function DonorDashboard() {
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.div variants={fadeUp}>
               <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)] mb-4">
-                Next Scheduled Gift
+                Suggested Programs
               </h3>
             </motion.div>
             <motion.div variants={fadeUp}>
               <Card>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg font-bold text-navy-900 dark:text-white">$250</span>
-                      <Badge variant="success" size="sm">Monthly</Badge>
-                    </div>
-                    <p className="text-sm text-navy-500 dark:text-white/50">Education for Refugees</p>
-                    <p className="text-xs text-navy-400 dark:text-white/40 mt-1">Next: August 1, 2026</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-xs text-navy-400 dark:text-white/40">Auto-donate</div>
-                    <div className="w-10 h-5 bg-gold-500 rounded-full mt-1 relative cursor-pointer">
-                      <div className="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow" />
-                    </div>
-                  </div>
-                </div>
+                <EmptyState title="No programs available yet" description="Programs will appear here once they are published." />
               </Card>
             </motion.div>
           </motion.div>
@@ -161,57 +115,16 @@ export default function DonorDashboard() {
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <motion.div variants={fadeUp}>
               <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)] mb-4">
-                Impact Metrics
+                Recent Activity
               </h3>
             </motion.div>
             <motion.div variants={fadeUp}>
               <Card>
-                <div className="grid grid-cols-2 gap-4">
-                  {[
-                    { label: 'Meals Provided', value: '1,240' },
-                    { label: 'Students Supported', value: '48' },
-                    { label: 'Water Systems', value: '3' },
-                    { label: 'Families Helped', value: '67' },
-                  ].map((metric) => (
-                    <div key={metric.label} className="text-center p-3 bg-navy-50 dark:bg-navy-800 rounded-sm">
-                      <div className="text-lg font-bold text-navy-900 dark:text-white">{metric.value}</div>
-                      <div className="text-[10px] text-navy-400 dark:text-white/40 uppercase tracking-wider">{metric.label}</div>
-                    </div>
-                  ))}
-                </div>
+                <EmptyState title="No recent activity" description="Your activity will appear here." />
               </Card>
             </motion.div>
           </motion.div>
         </div>
-
-        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div variants={fadeUp}>
-            <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)] mb-4">
-              Suggested Programs
-            </h3>
-          </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {suggestedPrograms.map((program) => (
-              <motion.div key={program.id} variants={fadeUp}>
-                <Card hover className="h-full">
-                  <Badge variant="info" size="sm" className="mb-3">{program.category}</Badge>
-                  <h4 className="font-semibold text-navy-900 dark:text-white mb-1">{program.title}</h4>
-                  <p className="text-sm text-navy-500 dark:text-white/50 mb-4">{program.description}</p>
-                  <div className="mb-3">
-                    <div className="flex justify-between text-xs text-navy-400 dark:text-white/40 mb-1">
-                      <span>{formatCurrency(program.raised)} raised</span>
-                      <span>{formatCurrency(program.goal)} goal</span>
-                    </div>
-                    <div className="h-2 bg-navy-100 dark:bg-navy-800 rounded-full overflow-hidden">
-                      <div className="h-full bg-gold-500 rounded-full" style={{ width: `${program.progress}%` }} />
-                    </div>
-                  </div>
-                  <Button size="sm" className="w-full">Donate</Button>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </>
   )

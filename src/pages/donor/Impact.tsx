@@ -2,48 +2,19 @@ import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts'
 import Card from '@/components/ui/Card'
-import Badge from '@/components/ui/Badge'
-import Button from '@/components/ui/Button'
-import { useScrollReveal, fadeUp, staggerContainer } from '@/hooks/useScrollReveal'
+import EmptyState from '@/components/ui/EmptyState'
+import { useScrollReveal, fadeUp } from '@/hooks/useScrollReveal'
 import { formatCurrency } from '@/utils/helpers'
 
 const campaignBreakdown = [
-  { name: 'Education for Refugees', value: 2250, color: '#3b82f6' },
-  { name: 'Clean Water Initiative', value: 1200, color: '#06b6d4' },
-  { name: 'Emergency Relief Fund', value: 500, color: '#ef4444' },
-  { name: 'Where Most Needed', value: 900, color: '#C49A2E' },
-]
-
-const fieldStories = [
-  {
-    id: 1,
-    title: 'How Education Changed Fatima\'s Life',
-    excerpt: 'Fatima, a 14-year-old refugee from Syria, now attends school regularly thanks to your support. She dreams of becoming a doctor.',
-    location: 'Jordan',
-    date: '2026-06-20',
-    image: '🎓',
-  },
-  {
-    id: 2,
-    title: 'Clean Water Transforms a Village',
-    excerpt: 'The village of Mwanzo now has access to clean drinking water, reducing waterborne diseases by 70%.',
-    location: 'Kenya',
-    date: '2026-05-15',
-    image: '💧',
-  },
-  {
-    id: 3,
-    title: 'Emergency Response: Flood Relief',
-    excerpt: 'Your donations helped provide emergency shelter and supplies to 200 families affected by flooding.',
-    location: 'Bangladesh',
-    date: '2026-04-10',
-    image: '🏚',
-  },
+  { name: 'Education for Refugees', value: 0, color: '#3b82f6' },
+  { name: 'Clean Water Initiative', value: 0, color: '#06b6d4' },
+  { name: 'Emergency Relief Fund', value: 0, color: '#ef4444' },
+  { name: 'Where Most Needed', value: 0, color: '#C49A2E' },
 ]
 
 export default function DonorImpact() {
   const { ref, isInView } = useScrollReveal()
-  const total = campaignBreakdown.reduce((sum, c) => sum + c.value, 0)
 
   return (
     <>
@@ -69,9 +40,7 @@ export default function DonorImpact() {
                   Your Impact Story
                 </h2>
                 <p className="text-white/60 mt-1">
-                  Since 2026, your <span className="text-gold-400 font-semibold">{formatCurrency(total)}</span> in donations
-                  have supported <span className="text-white font-medium">234 people</span> across{' '}
-                  <span className="text-white font-medium">4 programs</span>.
+                  Your donations are making a difference. Impact data will appear here as you give.
                 </p>
               </div>
             </div>
@@ -134,26 +103,9 @@ export default function DonorImpact() {
               <h3 className="text-lg font-semibold text-navy-900 dark:text-white font-[family-name:var(--font-display)]">
                 Field Stories
               </h3>
-              {fieldStories.map((story) => (
-                <Card key={story.id} hover>
-                  <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 rounded-sm bg-navy-50 dark:bg-navy-800 flex items-center justify-center text-2xl flex-shrink-0">
-                      {story.image}
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-navy-900 dark:text-white text-sm">{story.title}</h4>
-                      <p className="text-xs text-navy-500 dark:text-white/50 mt-1 line-clamp-2">{story.excerpt}</p>
-                      <div className="flex items-center gap-3 mt-2">
-                        <Badge variant="info" size="sm">{story.location}</Badge>
-                        <span className="text-[10px] text-navy-300 dark:text-white/30">{story.date}</span>
-                      </div>
-                    </div>
-                    <Button size="sm" variant="ghost" className="text-gold-500 flex-shrink-0">
-                      Read
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+              <Card>
+                <EmptyState title="Impact data not yet available" description="Field stories and impact reports will appear here as your donations create change." />
+              </Card>
             </div>
           </motion.div>
         </div>
