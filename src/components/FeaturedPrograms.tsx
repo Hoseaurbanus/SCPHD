@@ -11,7 +11,7 @@ export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
   const inView = useInView(headerRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden">
+    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden z-10">
       <div
         className="absolute inset-0 opacity-40"
         style={{

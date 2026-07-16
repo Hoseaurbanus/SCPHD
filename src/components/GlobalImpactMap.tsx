@@ -7,7 +7,7 @@ export default function GlobalImpactMap() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden">
+    <section ref={ref} className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden z-10">
       <div className="absolute inset-0 lines-bg opacity-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
@@ -28,8 +28,8 @@ export default function GlobalImpactMap() {
               className="text-white font-display font-bold leading-tight"
               style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
             >
-              Operating Across<br />
-              <em className="not-italic gradient-text">Multiple Countries</em>
+              Our Reach in<br />
+              <em className="not-italic gradient-text">Gombe State, Nigeria</em>
             </motion.h2>
           </div>
         </div>

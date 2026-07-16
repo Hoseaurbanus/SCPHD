@@ -53,7 +53,7 @@ export default function ImpactStats() {
   const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden">
+    <section className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden z-10">
       <div className="absolute inset-0 lines-bg opacity-30" />
 
       <motion.div

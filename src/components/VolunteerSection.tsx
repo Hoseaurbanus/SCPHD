@@ -7,7 +7,7 @@ export default function VolunteerSection() {
   const inView = useInView(headerRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-navy-950">
+    <section className="relative py-24 lg:py-32 overflow-hidden bg-navy-950 z-10">
       <div className="absolute inset-0 lines-bg opacity-20" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
 

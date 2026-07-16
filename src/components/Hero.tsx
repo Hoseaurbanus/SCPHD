@@ -6,7 +6,7 @@ interface HeroProps {
 
 export default function Hero({ navigate }: HeroProps) {
   return (
-    <section className="relative w-full h-screen min-h-[680px] overflow-hidden bg-navy-950">
+    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-navy-950">
       <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/75 to-navy-900/30 z-10" />
       <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-navy-900/20 z-10" />
       <div className="absolute inset-0 z-10 lines-bg opacity-40" />

@@ -8,7 +8,7 @@ export default function NewsSection() {
   const [email, setEmail] = useState('')
 
   return (
-    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden">
+    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden z-10">
       <div
         className="absolute inset-0 opacity-30"
         style={{
