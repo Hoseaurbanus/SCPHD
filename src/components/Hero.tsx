@@ -33,24 +33,14 @@ export default function Hero({ navigate }: HeroProps) {
         >
           <img
             src={slides[current]}
-            alt=""
+            alt="SCPHD community event"
             className="w-full h-full object-cover"
           />
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/75 to-navy-900/30 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-navy-900/30 z-10" />
-      <div className="absolute inset-0 z-10 lines-bg opacity-40" />
-
-      <motion.div
-        className="absolute right-[15%] top-[20%] w-64 h-64 rounded-full z-10 pointer-events-none"
-        animate={{ scale: [1, 1.08, 1], opacity: [0.06, 0.12, 0.06] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          background: 'radial-gradient(circle, rgba(196,154,46,0.4) 0%, transparent 70%)',
-        }}
-      />
+      <div className="absolute inset-0 z-10 bg-gradient-to-r from-navy-950/80 via-navy-950/50 to-transparent" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-950/90 via-transparent to-navy-950/30" />
 
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col justify-center pt-24 pb-40">
         <div className="section-label mb-7 text-gold-500">
@@ -58,14 +48,14 @@ export default function Hero({ navigate }: HeroProps) {
         </div>
 
         <div className="mb-8 overflow-hidden">
-          <h1 className="text-white font-display leading-[1.05] font-bold" style={{ fontSize: 'clamp(2.6rem, 6vw, 5.5rem)' }}>
+          <h1 className="text-white font-display leading-[1.05] font-bold drop-shadow-lg" style={{ fontSize: 'clamp(2.6rem, 6vw, 5.5rem)' }}>
             Building Peace,<br />
             <em className="not-italic gradient-text">One Community</em><br />
             at a Time
           </h1>
         </div>
 
-        <p className="text-white/65 text-lg leading-relaxed max-w-xl mb-10 font-light">
+        <p className="text-white/80 text-lg leading-relaxed max-w-xl mb-10 font-light drop-shadow">
           We work at the intersection of peace, justice, and human dignity — delivering measurable impact worldwide.
         </p>
 
@@ -87,7 +77,7 @@ export default function Hero({ navigate }: HeroProps) {
             onClick={() => navigate('programs')}
             whileHover={{ scale: 1.03, backgroundColor: 'rgba(255,255,255,0.12)' }}
             whileTap={{ scale: 0.97 }}
-            className="px-9 py-4 border border-white/25 text-white font-semibold text-sm tracking-wide rounded-sm transition-colors"
+            className="px-9 py-4 border border-white/30 text-white font-semibold text-sm tracking-wide rounded-sm transition-colors backdrop-blur-sm bg-white/5"
           >
             Explore Programs
           </motion.button>
@@ -111,7 +101,7 @@ export default function Hero({ navigate }: HeroProps) {
               <div className="text-gold-400 font-display text-2xl font-bold number-glow mb-0.5">
                 {value}
               </div>
-              <div className="text-white/45 text-[11px] tracking-wide">{label}</div>
+              <div className="text-white/60 text-[11px] tracking-wide">{label}</div>
             </div>
           ))}
         </div>
@@ -124,7 +114,7 @@ export default function Hero({ navigate }: HeroProps) {
             onClick={() => setCurrent(i)}
             aria-label={`Go to slide ${i + 1}`}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              i === current ? 'bg-gold-500 w-6' : 'bg-white/30 hover:bg-white/50'
+              i === current ? 'bg-gold-500 w-6' : 'bg-white/40 hover:bg-white/60'
             }`}
           />
         ))}
@@ -141,7 +131,7 @@ export default function Hero({ navigate }: HeroProps) {
           transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
           className="w-px h-12 bg-gradient-to-b from-transparent via-white/30 to-white/60"
         />
-        <span className="text-white/30 text-[9px] tracking-[0.2em] uppercase rotate-90 mt-2">Scroll</span>
+        <span className="text-white/40 text-[9px] tracking-[0.2em] uppercase rotate-90 mt-2">Scroll</span>
       </motion.div>
     </section>
   )
