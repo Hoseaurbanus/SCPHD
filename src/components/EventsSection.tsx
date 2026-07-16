@@ -1,6 +1,21 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import EmptyState from '@/components/ui/EmptyState'
+import { Link } from 'react-router-dom'
+
+const events = [
+  {
+    image: '/images/events/4.jpg',
+    title: 'Community Peace Workshop',
+    date: 'Coming Soon',
+    location: 'Gombe State',
+  },
+  {
+    image: '/images/events/5.jpg',
+    title: 'Health Outreach Program',
+    date: 'Coming Soon',
+    location: 'Gombe State',
+  },
+]
 
 export default function EventsSection() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -31,23 +46,40 @@ export default function EventsSection() {
               <em className="not-italic text-navy-600">a Better World</em>
             </motion.h2>
           </div>
-          <motion.a
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            href="#"
+          <Link
+            to="/events"
             className="self-start md:self-end text-gold-600 text-sm font-bold hover:text-gold-700 transition-colors group"
           >
             Full Event Calendar
             <span className="ml-1 group-hover:translate-x-1 inline-block transition-transform">→</span>
-          </motion.a>
+          </Link>
         </div>
 
-        <EmptyState
-          title="No upcoming events"
-          description="Check back soon for new events."
-          className="bg-slate-50 rounded-sm"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {events.map((event, i) => (
+            <motion.div
+              key={event.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
+              className="group relative overflow-hidden rounded-sm bg-navy-950"
+            >
+              <div className="aspect-[16/9] overflow-hidden">
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="text-gold-400 text-[10px] font-bold tracking-widest uppercase mb-2">{event.date}</div>
+                <h3 className="text-white font-display text-xl font-bold mb-1">{event.title}</h3>
+                <p className="text-white/50 text-sm">{event.location}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

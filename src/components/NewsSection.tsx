@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
-import EmptyState from '@/components/ui/EmptyState'
+import { Link } from 'react-router-dom'
 
 export default function NewsSection() {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -38,25 +38,30 @@ export default function NewsSection() {
               <em className="not-italic text-navy-600">the Field</em>
             </motion.h2>
           </div>
-          <motion.a
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            href="#"
+          <Link
+            to="/news"
             className="self-start md:self-end text-gold-600 text-sm font-bold hover:text-gold-700 transition-colors group"
           >
             All Publications
             <span className="ml-1 group-hover:translate-x-1 inline-block transition-transform">→</span>
-          </motion.a>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <EmptyState
-              title="No news articles yet"
-              description="News and updates will be published here."
-              className="bg-white rounded-sm"
-            />
+          <div className="lg:col-span-2 group relative overflow-hidden rounded-sm bg-navy-950">
+            <div className="aspect-[16/9] overflow-hidden">
+              <img
+                src="/images/news/6.jpg"
+                alt="SCPHD field news"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="text-gold-400 text-[10px] font-bold tracking-widest uppercase mb-2">Latest Update</div>
+              <h3 className="text-white font-display text-xl font-bold mb-1">News & field reports coming soon</h3>
+              <p className="text-white/50 text-sm">Stories and updates from our programs will appear here.</p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">
@@ -64,7 +69,7 @@ export default function NewsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.45 }}
-              className="bg-navy-900 rounded-sm p-5 relative overflow-hidden"
+              className="bg-navy-900 rounded-sm p-5 relative overflow-hidden flex-1"
             >
               <motion.div
                 className="absolute top-0 right-0 w-24 h-24 rounded-full"

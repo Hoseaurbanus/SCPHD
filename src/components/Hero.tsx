@@ -1,14 +1,46 @@
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface HeroProps {
   navigate: (p: string) => void
 }
 
+const slides = [
+  '/images/general/1.jpg',
+  '/images/general/2.jpg',
+]
+
 export default function Hero({ navigate }: HeroProps) {
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slides.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-navy-950">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 1.2, ease: 'easeInOut' }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src={slides[current]}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
+
       <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-900/75 to-navy-900/30 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-navy-900/20 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/40 to-navy-900/30 z-10" />
       <div className="absolute inset-0 z-10 lines-bg opacity-40" />
 
       <motion.div
@@ -83,6 +115,19 @@ export default function Hero({ navigate }: HeroProps) {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              i === current ? 'bg-gold-500 w-6' : 'bg-white/30 hover:bg-white/50'
+            }`}
+          />
+        ))}
       </div>
 
       <motion.div
