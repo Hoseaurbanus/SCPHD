@@ -1,0 +1,54 @@
+import axios from 'axios'
+import { config } from '@/config'
+
+const apiClient = axios.create({
+  baseURL: config.apiUrl,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 15000,
+})
+
+apiClient.interceptors.request.use(
+  (request) => {
+    const token = localStorage.getItem(config.jwtStorageKey)
+    if (token) {
+      request.headers.Authorization = `Bearer ${token}`
+    }
+    return request
+  },
+  (error) => Promise.reject(error)
+)
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true
+      const refreshToken = localStorage.getItem(config.refreshTokenKey)
+
+      if (refreshToken) {
+        try {
+          const { data } = await axios.post(`${config.apiUrl}/auth/refresh`, {
+            refresh_token: refreshToken,
+          })
+          localStorage.setItem(config.jwtStorageKey, data.access_token)
+          originalRequest.headers.Authorization = `Bearer ${data.access_token}`
+          return apiClient(originalRequest)
+        } catch {
+          localStorage.removeItem(config.jwtStorageKey)
+          localStorage.removeItem(config.refreshTokenKey)
+          localStorage.removeItem(config.userKey)
+          window.location.href = '/login'
+        }
+      } else {
+        window.location.href = '/login'
+      }
+    }
+    return Promise.reject(error)
+  }
+)
+
+export default apiClient
