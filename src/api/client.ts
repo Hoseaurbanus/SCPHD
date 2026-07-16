@@ -29,7 +29,7 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true
       const refreshToken = localStorage.getItem(config.refreshTokenKey)
 
-      if (refreshToken) {
+      if (refreshToken && !originalRequest.url?.includes('/auth/')) {
         try {
           const { data } = await axios.post(`${config.apiUrl}/auth/refresh`, {
             refresh_token: refreshToken,
@@ -41,10 +41,17 @@ apiClient.interceptors.response.use(
           localStorage.removeItem(config.jwtStorageKey)
           localStorage.removeItem(config.refreshTokenKey)
           localStorage.removeItem(config.userKey)
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login'
+          }
+        }
+      } else if (!originalRequest.url?.includes('/auth/')) {
+        localStorage.removeItem(config.jwtStorageKey)
+        localStorage.removeItem(config.refreshTokenKey)
+        localStorage.removeItem(config.userKey)
+        if (window.location.pathname !== '/login') {
           window.location.href = '/login'
         }
-      } else {
-        window.location.href = '/login'
       }
     }
     return Promise.reject(error)

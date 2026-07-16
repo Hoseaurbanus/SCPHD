@@ -19,7 +19,7 @@ export default function VolunteerProfile() {
     handleSubmit,
     formState: { errors },
   } = useForm<ProfileFormData>({
-    resolver: yupResolver(profileSchema),
+    resolver: yupResolver(profileSchema) as any,
     defaultValues: {
       name: '',
       email: '',

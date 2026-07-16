@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import EmptyState from '@/components/ui/EmptyState'
@@ -66,6 +66,40 @@ const coreValues = [
     color: 'from-teal-500/20 to-transparent',
   },
 ]
+
+interface CoreValueCardProps {
+  value: (typeof coreValues)[number]
+  index: number
+}
+
+function CoreValueCard({ value, index }: CoreValueCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const cardInView = useInView(cardRef, { once: true, margin: '-50px' })
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 40 }}
+      animate={cardInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      whileHover={{ y: -6, transition: { duration: 0.3 } }}
+      className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm p-8 relative overflow-hidden group"
+    >
+      <motion.div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div className="relative z-10">
+        <motion.div
+          className="h-0.5 bg-gold-500 mb-5 origin-left"
+          initial={{ scaleX: 0 }}
+          animate={cardInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.6, delay: index * 0.08 + 0.3 }}
+        />
+        <div className="text-gold-500 mb-4">{value.icon}</div>
+        <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-xl font-bold mb-3">{value.title}</h3>
+        <p className="text-slate-500 dark:text-white/45 text-sm leading-relaxed">{value.description}</p>
+      </div>
+    </motion.div>
+  )
+}
 
 function TimelineSection() {
   const ref = useRef<HTMLDivElement>(null)
@@ -200,34 +234,9 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {coreValues.map((value, i) => {
-              const cardRef = useRef<HTMLDivElement>(null)
-              const cardInView = useInView(cardRef, { once: true, margin: '-50px' })
-              return (
-                <motion.div
-                  key={value.title}
-                  ref={cardRef}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={cardInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                  whileHover={{ y: -6, transition: { duration: 0.3 } }}
-                  className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm p-8 relative overflow-hidden group"
-                >
-                  <motion.div className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  <div className="relative z-10">
-                    <motion.div
-                      className="h-0.5 bg-gold-500 mb-5 origin-left"
-                      initial={{ scaleX: 0 }}
-                      animate={cardInView ? { scaleX: 1 } : {}}
-                      transition={{ duration: 0.6, delay: i * 0.08 + 0.3 }}
-                    />
-                    <div className="text-gold-500 mb-4">{value.icon}</div>
-                    <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-xl font-bold mb-3">{value.title}</h3>
-                    <p className="text-slate-500 dark:text-white/45 text-sm leading-relaxed">{value.description}</p>
-                  </div>
-                </motion.div>
-              )
-            })}
+            {coreValues.map((value, i) => (
+              <CoreValueCard key={value.title} value={value} index={i} />
+            ))}
           </div>
         </div>
       </section>

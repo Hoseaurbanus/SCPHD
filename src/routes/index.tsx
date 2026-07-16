@@ -38,6 +38,8 @@ const AdminReports = lazy(() => import('@/pages/admin/Reports'))
 const AdminSettings = lazy(() => import('@/pages/admin/Settings'))
 const AdminAudit = lazy(() => import('@/pages/admin/Audit'))
 
+const NotFoundPage = lazy(() => import('@/pages/public/NotFoundPage'))
+
 const Loading = () => (
   <div className="flex items-center justify-center p-12">
     <div className="w-8 h-8 border-2 border-gold-500 border-t-transparent rounded-full animate-spin" />
@@ -88,6 +90,7 @@ export const router = createBrowserRouter([
       { path: 'contact', element: <ErrorBoundary><Suspense fallback={<Loading />}><ContactPage /></Suspense></ErrorBoundary> },
       { path: 'news', element: <ErrorBoundary><Suspense fallback={<Loading />}><NewsPage /></Suspense></ErrorBoundary> },
       { path: 'events', element: <ErrorBoundary><Suspense fallback={<Loading />}><EventsPage /></Suspense></ErrorBoundary> },
+      { path: '*', element: <ErrorBoundary><Suspense fallback={<Loading />}><NotFoundPage /></Suspense></ErrorBoundary> },
     ],
   },
   {

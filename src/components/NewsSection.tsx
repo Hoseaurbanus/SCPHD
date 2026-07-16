@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import EmptyState from '@/components/ui/EmptyState'
 
 export default function NewsSection() {
   const headerRef = useRef<HTMLDivElement>(null)
   const inView = useInView(headerRef, { once: true, margin: '-80px' })
+  const [email, setEmail] = useState('')
 
   return (
     <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden">
@@ -80,6 +81,9 @@ export default function NewsSection() {
                   <input
                     type="email"
                     placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    aria-label="Email address for newsletter"
                     className="flex-1 bg-white/8 border border-white/15 text-white placeholder-white/25 text-xs px-3 py-2.5 rounded-sm focus:outline-none focus:border-gold-500 transition-colors"
                   />
                   <motion.button

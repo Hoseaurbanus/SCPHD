@@ -76,7 +76,7 @@ export default function DonorImpact() {
                         borderRadius: '4px',
                         color: '#fff',
                       }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={((value: number) => formatCurrency(value)) as any}
                     />
                     <Legend
                       formatter={(value: string) => <span className="text-navy-600 dark:text-white/60 text-xs">{value}</span>}

@@ -24,11 +24,11 @@ export default function HomePage() {
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://scphd.org" />
       </Helmet>
-      <Hero navigate={navigateTo as (p: any) => void} />
+      <Hero navigate={navigateTo} />
       <ImpactStats />
-      <FeaturedPrograms navigate={navigateTo as (p: any) => void} />
+      <FeaturedPrograms navigate={navigateTo} />
       <GlobalImpactMap />
-      <DonationBanner navigate={navigateTo as (p: any) => void} />
+      <DonationBanner navigate={navigateTo} />
       <EventsSection />
       <NewsSection />
       <VolunteerSection />

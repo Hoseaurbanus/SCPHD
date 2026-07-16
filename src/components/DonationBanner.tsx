@@ -1,10 +1,9 @@
 import { useState, useRef } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import type { Page } from '../App'
 import EmptyState from '@/components/ui/EmptyState'
 
 interface DonationBannerProps {
-  navigate: (p: Page) => void
+  navigate: (p: string) => void
 }
 
 const amounts = [25, 50, 100, 250, 500]

@@ -92,7 +92,7 @@ export default function AdminOverview() {
                     <YAxis tick={{ fill: '#7aa5cc', fontSize: 12 }} axisLine={{ stroke: '#1a3050' }} tickLine={false} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`} />
                     <Tooltip
                       contentStyle={{ backgroundColor: '#0B1D3A', border: '1px solid #1a3050', borderRadius: '4px', color: '#fff' }}
-                      formatter={(value: number) => [formatCurrency(value), 'Revenue']}
+                      formatter={((value: number) => [formatCurrency(value), 'Revenue']) as any}
                       cursor={{ fill: 'rgba(196, 154, 46, 0.05)' }}
                     />
                     <Bar dataKey="revenue" fill="#C49A2E" radius={[4, 4, 0, 0]} />
@@ -117,7 +117,7 @@ export default function AdminOverview() {
                     </Pie>
                     <Tooltip
                       contentStyle={{ backgroundColor: '#0B1D3A', border: '1px solid #1a3050', borderRadius: '4px', color: '#fff' }}
-                      formatter={(value: number) => formatCurrency(value)}
+                      formatter={((value: number) => formatCurrency(value)) as any}
                     />
                   </PieChart>
                 </ResponsiveContainer>

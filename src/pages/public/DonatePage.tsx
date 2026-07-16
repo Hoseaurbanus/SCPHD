@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { cn } from '@/utils/cn'
@@ -21,7 +22,7 @@ export default function DonatePage() {
   const { scrollYProgress } = useScroll()
   const bgY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
 
-  const effectiveAmount = customAmount ? Number(customAmount) : amount
+  const effectiveAmount = customAmount ? (parseInt(customAmount, 10) || 0) : amount
 
   const nextStep = () => setStep(s => Math.min(s + 1, steps.length - 1))
   const prevStep = () => setStep(s => Math.max(s - 1, 0))
@@ -367,12 +368,12 @@ export default function DonatePage() {
                 </motion.div>
 
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <a href="/donate">
+                  <Link to="/donate">
                     <Button variant="primary" size="md">Make Another Donation</Button>
-                  </a>
-                  <a href="/">
+                  </Link>
+                  <Link to="/">
                     <Button variant="outline" size="md">Return Home</Button>
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             )}

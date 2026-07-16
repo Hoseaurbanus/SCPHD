@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion'
-import type { Page } from '../App'
 
 interface HeroProps {
-  navigate: (p: Page) => void
+  navigate: (p: string) => void
 }
 
 export default function Hero({ navigate }: HeroProps) {

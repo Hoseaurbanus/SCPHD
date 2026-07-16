@@ -1,10 +1,9 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import type { Page } from '../App'
 import EmptyState from '@/components/ui/EmptyState'
 
 interface FeaturedProgramsProps {
-  navigate: (p: Page) => void
+  navigate: (p: string) => void
 }
 
 export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {

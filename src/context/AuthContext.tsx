@@ -62,7 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const register = async (data: { name: string; email: string; password: string; role: string }): Promise<User> => {
-    const response = await authService.register({ ...data, confirmPassword: data.password, agreeToTerms: true })
+    const response = await authService.register({ ...data, role: data.role as 'donor' | 'volunteer' | 'member', confirmPassword: data.password, agreeToTerms: true })
     localStorage.setItem(config.jwtStorageKey, response.access_token)
     localStorage.setItem(config.refreshTokenKey, response.refresh_token)
     localStorage.setItem(config.userKey, JSON.stringify(response.user))
