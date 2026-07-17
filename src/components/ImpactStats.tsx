@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion'
 const stats = [
   { value: '2019', label: 'Year Founded', icon: '◉', color: 'from-gold-500/20 to-transparent' },
   { value: '10+', label: 'Office Locations', icon: '◎', color: 'from-blue-500/20 to-transparent' },
-  { value: '3', label: 'Active Programs', icon: '◈', color: 'from-emerald-500/20 to-transparent' },
+  { value: '2', label: 'Active Programs', icon: '◈', color: 'from-emerald-500/20 to-transparent' },
   { value: '4', label: 'Countries', icon: '◇', color: 'from-purple-500/20 to-transparent' },
   { value: '100+', label: 'Partner Organisations', icon: '◈', color: 'from-amber-500/20 to-transparent' },
   { value: '21', label: 'States Reached', icon: '◉', color: 'from-rose-500/20 to-transparent' },
