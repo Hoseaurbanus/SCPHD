@@ -78,7 +78,8 @@ export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.15 + i * 0.12 }}
-              className="bg-white rounded-sm border border-navy-100 p-8 card-lift"
+              onClick={() => navigate('programs')}
+              className="bg-white rounded-sm border border-navy-100 p-8 card-lift cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className={`px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-sm ${program.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-navy-100 text-navy-600'}`}>

@@ -1,18 +1,17 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { cn } from '@/utils/cn'
 import { formatCurrency } from '@/utils/helpers'
 import Button from '@/components/ui/Button'
-import EmptyState from '@/components/ui/EmptyState'
 
 const presetAmounts = [25, 50, 100, 250, 500, 1000]
 
-const steps = ['Campaign', 'Amount', 'Details', 'Payment', 'Success']
+const steps = ['Amount', 'Details', 'Payment', 'Success']
 
 export default function DonatePage() {
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState(1)
   const [amount, setAmount] = useState(100)
   const [customAmount, setCustomAmount] = useState('')
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>('one-time')
@@ -24,8 +23,8 @@ export default function DonatePage() {
 
   const effectiveAmount = customAmount ? (parseInt(customAmount, 10) || 0) : amount
 
-  const nextStep = () => setStep(s => Math.min(s + 1, steps.length - 1))
-  const prevStep = () => setStep(s => Math.max(s - 1, 0))
+  const nextStep = () => setStep(s => Math.min(s + 1, steps.length))
+  const prevStep = () => setStep(s => Math.max(s - 1, 1))
 
   const handleDonate = () => {
     setStep(4)
@@ -72,19 +71,19 @@ export default function DonatePage() {
           {step < 4 && (
             <div className="mb-10">
               <div className="flex items-center justify-between mb-3">
-                {steps.slice(0, 4).map((s, i) => (
+                {steps.map((s, i) => (
                   <div key={s} className="flex items-center gap-2">
                     <motion.div
-                      animate={{ scale: i === step ? 1.1 : 1 }}
+                      animate={{ scale: i + 1 === step ? 1.1 : 1 }}
                       className={cn(
                         'w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors duration-300',
-                        i < step ? 'bg-emerald-500 text-white' : i === step ? 'bg-gold-500 text-navy-900' : 'bg-navy-200 dark:bg-navy-700 text-navy-500 dark:text-white/40'
+                        i + 1 < step ? 'bg-emerald-500 text-white' : i + 1 === step ? 'bg-gold-500 text-navy-900' : 'bg-navy-200 dark:bg-navy-700 text-navy-500 dark:text-white/40'
                       )}
                     >
-                      {i < step ? '✓' : i + 1}
+                      {i + 1 < step ? '✓' : i + 1}
                     </motion.div>
-                    <span className={cn('text-xs font-semibold hidden sm:inline', i === step ? 'text-navy-900 dark:text-white' : 'text-slate-400 dark:text-white/30')}>{s}</span>
-                    {i < 3 && <div className={cn('w-8 lg:w-16 h-px mx-2', i < step ? 'bg-emerald-500' : 'bg-navy-200 dark:bg-navy-700')} />}
+                    <span className={cn('text-xs font-semibold hidden sm:inline', i + 1 === step ? 'text-navy-900 dark:text-white' : 'text-slate-400 dark:text-white/30')}>{s}</span>
+                    {i < steps.length - 1 && <div className={cn('w-8 lg:w-16 h-px mx-2', i + 1 < step ? 'bg-emerald-500' : 'bg-navy-200 dark:bg-navy-700')} />}
                   </div>
                 ))}
               </div>
@@ -92,23 +91,6 @@ export default function DonatePage() {
           )}
 
           <AnimatePresence mode="wait">
-            {/* Step 0: No campaigns available */}
-            {step === 0 && (
-              <motion.div
-                key="step-0"
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm p-8"
-              >
-                <EmptyState
-                  title="No active donation campaigns"
-                  description="Campaigns will appear here when created by administrators."
-                />
-              </motion.div>
-            )}
-
             {/* Step 1: Amount */}
             {step === 1 && (
               <motion.div

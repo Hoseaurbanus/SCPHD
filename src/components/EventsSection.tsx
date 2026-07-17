@@ -57,8 +57,11 @@ export default function EventsSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {events.map((event, i) => (
-            <motion.div
+            <Link
               key={event.title}
+              to="/events"
+            >
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
@@ -78,6 +81,7 @@ export default function EventsSection() {
                 <p className="text-white/50 text-sm">{event.location}</p>
               </div>
             </motion.div>
+            </Link>
           ))}
         </div>
       </div>

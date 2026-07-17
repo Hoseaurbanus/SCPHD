@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, Component, type ReactNode } from 'react'
+import { Suspense, lazy, Component, type ReactNode } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import PublicLayout from '@/layouts/PublicLayout'
 import DashboardLayout from '@/layouts/DashboardLayout'

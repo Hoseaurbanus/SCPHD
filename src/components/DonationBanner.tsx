@@ -23,7 +23,7 @@ export default function DonationBanner({ navigate }: DonationBannerProps) {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
-  const effective = custom ? Number(custom) : selected
+  const effective = custom ? (Number(custom) || 0) : selected
   const impactText = impactLabels[effective] || (effective >= 1000 ? 'funds an entire school program for one month' : 'provides life-saving humanitarian support')
 
   return (
@@ -118,6 +118,7 @@ export default function DonationBanner({ navigate }: DonationBannerProps) {
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30 text-sm">$</span>
                   <input
                     type="number"
+                    min="1"
                     placeholder="Other"
                     value={custom}
                     onChange={(e) => { setCustom(e.target.value); setSelected(0) }}
@@ -136,7 +137,7 @@ export default function DonationBanner({ navigate }: DonationBannerProps) {
                   className="bg-white/7 border border-white/10 rounded-sm px-4 py-3 mb-6 text-xs"
                 >
                   <span className="text-gold-400">
-                    <strong className="text-gold-300">${effective}</strong> {impactText}
+                    <strong className="text-gold-300">${Number.isFinite(effective) ? effective : 0}</strong> {impactText}
                   </span>
                 </motion.div>
               </AnimatePresence>

@@ -97,15 +97,15 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                0808 047 2194
+                <a href="tel:+2348080472194" className="hover:text-white transition-colors">0808 047 2194</a>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                scphd.ng@gmail.com
+                <a href="mailto:scphd.ng@gmail.com" className="hover:text-white transition-colors">scphd.ng@gmail.com</a>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                springfield.org.ng
+                <a href="https://springfield.org.ng" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">springfield.org.ng</a>
               </li>
             </ul>
           </div>

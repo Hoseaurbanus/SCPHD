@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import EmptyState from '@/components/ui/EmptyState'
 
 export default function VolunteerSection() {
@@ -46,20 +47,24 @@ export default function VolunteerSection() {
               transition={{ duration: 0.5, delay: 0.65 }}
               className="flex flex-wrap gap-3"
             >
-              <motion.button
-                whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(196,154,46,0.4)' }}
-                whileTap={{ scale: 0.97 }}
-                className="btn-primary px-8 py-3.5 bg-gold-500 text-navy-900 font-bold text-sm tracking-wide rounded-sm"
-              >
-                Apply to Volunteer
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.6)' }}
-                whileTap={{ scale: 0.97 }}
-                className="px-8 py-3.5 border border-white/25 text-white font-semibold text-sm tracking-wide rounded-sm transition-all duration-300"
-              >
-                Learn More
-              </motion.button>
+              <Link to="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(196,154,46,0.4)' }}
+                  whileTap={{ scale: 0.97 }}
+                  className="btn-primary px-8 py-3.5 bg-gold-500 text-navy-900 font-bold text-sm tracking-wide rounded-sm"
+                >
+                  Apply to Volunteer
+                </motion.button>
+              </Link>
+              <Link to="/about">
+                <motion.button
+                  whileHover={{ scale: 1.03, borderColor: 'rgba(255,255,255,0.6)' }}
+                  whileTap={{ scale: 0.97 }}
+                  className="px-8 py-3.5 border border-white/25 text-white font-semibold text-sm tracking-wide rounded-sm transition-all duration-300"
+                >
+                  Learn More
+                </motion.button>
+              </Link>
             </motion.div>
           </div>
 

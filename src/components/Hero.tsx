@@ -87,10 +87,10 @@ export default function Hero({ navigate }: HeroProps) {
       <div className="absolute bottom-0 left-0 right-0 z-20 glass-dark border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-2 md:grid-cols-4">
           {[
-            { value: '0', label: 'Lives Impacted' },
-            { value: '0', label: 'Countries' },
-            { value: '0', label: 'Programs' },
-            { value: '0', label: 'Funds Deployed' },
+            { value: '100+', label: 'Partners' },
+            { value: '4', label: 'Countries' },
+            { value: '2', label: 'Programs' },
+            { value: '21', label: 'States' },
           ].map(({ value, label }, i) => (
             <div
               key={label}

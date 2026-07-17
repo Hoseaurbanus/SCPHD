@@ -13,6 +13,7 @@ export default function NewsPage() {
 
   const featured = articles[0]
   const recent = articles[1]
+  const remainingArticles = articles.slice(2)
 
   return (
     <>
@@ -47,6 +48,7 @@ export default function NewsPage() {
       </section>
 
       {/* Editorial Grid */}
+      {featured && (
       <section ref={headerRef} className="bg-white dark:bg-navy-900 py-20 lg:py-28 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
@@ -87,6 +89,7 @@ export default function NewsPage() {
             {/* Side panel */}
             <div className="flex flex-col gap-4">
               {/* Recent article */}
+              {recent && (
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={headerInView ? { opacity: 1, x: 0 } : {}}
@@ -112,6 +115,7 @@ export default function NewsPage() {
                   </p>
                 </div>
               </motion.div>
+              )}
 
               {/* Newsletter signup */}
               <motion.div
@@ -145,8 +149,9 @@ export default function NewsPage() {
           </div>
 
           {/* All articles grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {articles.map((article, i) => (
+          {remainingArticles.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {remainingArticles.map((article, i) => (
               <motion.article
                 key={article.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -179,8 +184,10 @@ export default function NewsPage() {
               </motion.article>
             ))}
           </div>
+          )}
         </div>
       </section>
+      )}
     </>
   )
 }

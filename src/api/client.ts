@@ -34,8 +34,9 @@ apiClient.interceptors.response.use(
           const { data } = await axios.post(`${config.apiUrl}/auth/refresh`, {
             refresh_token: refreshToken,
           })
-          localStorage.setItem(config.jwtStorageKey, data.access_token)
-          originalRequest.headers.Authorization = `Bearer ${data.access_token}`
+          const accessToken = data.access_token ?? data.data?.access_token
+          localStorage.setItem(config.jwtStorageKey, accessToken)
+          originalRequest.headers.Authorization = `Bearer ${accessToken}`
           return apiClient(originalRequest)
         } catch {
           localStorage.removeItem(config.jwtStorageKey)
