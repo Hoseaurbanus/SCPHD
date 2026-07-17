@@ -11,7 +11,7 @@ export default function NewsSection() {
   const latest = articles[0]
 
   return (
-    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden z-10">
+    <section className="bg-cream-100 py-24 lg:py-32 relative overflow-hidden">
       <div
         className="absolute inset-0 opacity-30"
         style={{

@@ -22,7 +22,7 @@ export default function EventsSection() {
   const inView = useInView(headerRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="bg-white py-24 lg:py-32 relative overflow-hidden z-10">
+    <section className="bg-white py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">

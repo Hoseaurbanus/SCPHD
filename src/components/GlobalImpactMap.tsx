@@ -7,7 +7,7 @@ export default function GlobalImpactMap() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden z-10">
+    <section ref={ref} className="bg-navy-950 py-24 lg:py-32 relative overflow-hidden">
       <div className="absolute inset-0 lines-bg opacity-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
