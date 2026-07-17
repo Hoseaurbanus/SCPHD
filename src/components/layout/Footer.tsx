@@ -42,8 +42,8 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-3">
-              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre" className="h-11 w-auto rounded-sm" />
+            <Link to="/" className="flex items-center">
+              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre for Peace and Humanitarian Development" className="h-12 w-auto object-contain" />
             </Link>
             <p className="text-sm text-white/50 leading-relaxed">
               Building peace and advancing humanitarian development worldwide.

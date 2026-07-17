@@ -17,15 +17,7 @@ export default function AuthLayout() {
       <div className="relative w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-3">
-            <div className="w-12 h-12 bg-gold-500 rounded-sm flex items-center justify-center shadow-lg shadow-gold-500/30">
-              <svg className="w-7 h-7 text-navy-900" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-              </svg>
-            </div>
-            <div className="text-left">
-              <span className="text-white font-bold text-xl">SCPHD</span>
-              <span className="block text-[10px] text-gold-400 tracking-widest uppercase">Springfield Center</span>
-            </div>
+            <img src="/images/favicon/Logo.jpg" alt="Springfield Centre" className="h-14 w-auto object-contain" />
           </Link>
         </div>
 

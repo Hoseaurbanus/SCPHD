@@ -52,8 +52,8 @@ export default function Nav() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
-            <Link to="/" className="flex items-center gap-3 group">
-              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre for Peace and Humanitarian Development" className="h-11 w-auto rounded-sm shadow-lg group-hover:shadow-gold-500/30 transition-shadow" />
+            <Link to="/" className="flex items-center group">
+              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre for Peace and Humanitarian Development" className="h-12 w-auto object-contain" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">
