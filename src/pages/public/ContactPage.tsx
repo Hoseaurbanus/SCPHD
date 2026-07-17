@@ -4,15 +4,27 @@ import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Button from '@/components/ui/Button'
-import EmptyState from '@/components/ui/EmptyState'
 import { contactSchema, type ContactFormData } from '@/utils/validators'
 import { CONTACT_SUBJECTS } from '@/utils/constants'
 
 const quickContacts = [
-  { title: 'General Inquiries', description: 'For general questions and information', icon: '✉', action: 'mailto:info@scphd.org', detail: 'info@scphd.org' },
-  { title: 'Media & Press', description: 'Press inquiries and media requests', icon: '📰', action: 'mailto:media@scphd.org', detail: 'media@scphd.org' },
-  { title: 'Partnerships', description: 'Explore collaboration opportunities', icon: '🤝', action: 'mailto:partners@scphd.org', detail: 'partners@scphd.org' },
-  { title: 'Donor Support', description: 'Questions about your donations', icon: '💝', action: 'mailto:donors@scphd.org', detail: 'donors@scphd.org' },
+  { title: 'General Inquiries', description: 'For general questions and information', icon: '✉', action: 'mailto:scphd.ng@gmail.com', detail: 'scphd.ng@gmail.com' },
+  { title: 'Phone', description: 'Call us during business hours', icon: '📞', action: 'tel:08080472194', detail: '0808 047 2194' },
+  { title: 'Website', description: 'Visit our official website', icon: '🌐', action: 'https://springfield.org.ng', detail: 'springfield.org.ng' },
+  { title: 'Social Media', description: 'Follow us @springfield.ng', icon: '📱', action: 'https://x.com/Springfield_NG', detail: '@springfield.ng' },
+]
+
+const offices = [
+  { city: 'Abuja', country: 'Nigeria', type: 'Head Office', address: 'Suite 308, 3rd Floor, Anbeez Plaza, 900285' },
+  { city: 'Gombe', country: 'Nigeria', type: 'Field Office', address: 'Gombe State' },
+  { city: 'Kaduna', country: 'Nigeria', type: 'Field Office', address: 'Kaduna State' },
+  { city: 'Bauchi', country: 'Nigeria', type: 'Field Office', address: 'Bauchi State' },
+  { city: 'Jos', country: 'Nigeria', type: 'Field Office', address: 'Plateau State' },
+  { city: 'Yola', country: 'Nigeria', type: 'Field Office', address: 'Adamawa State' },
+  { city: 'Makurdi', country: 'Nigeria', type: 'Field Office', address: 'Benue State' },
+  { city: 'Accra', country: 'Ghana', type: 'Regional Office', address: 'Greater Accra' },
+  { city: 'Dar es Salaam', country: 'Tanzania', type: 'Regional Office', address: 'Dar es Salaam' },
+  { city: 'Kampala', country: 'Uganda', type: 'Regional Office', address: 'Kampala' },
 ]
 
 export default function ContactPage() {
@@ -72,10 +84,10 @@ export default function ContactPage() {
           <div className="flex items-center gap-3">
             <motion.div animate={{ opacity: [1, 0.4, 1] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-2.5 h-2.5 bg-white rounded-full" />
             <p className="text-white text-sm font-semibold">
-              Emergency? Call our 24/7 Crisis Line: <strong>+1 (555) 911-HELP</strong>
+              Emergency? Call our 24/7 Crisis Line: <strong>0808 047 2194</strong>
             </p>
           </div>
-          <a href="tel:+15559114357" className="bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-4 py-2 rounded-sm transition-colors">
+          <a href="tel:08080472194" className="bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-4 py-2 rounded-sm transition-colors">
             Call Now →
           </a>
         </div>
@@ -193,6 +205,8 @@ export default function ContactPage() {
                 <motion.a
                   key={contact.title}
                   href={contact.action}
+                  target={contact.action.startsWith('http') ? '_blank' : undefined}
+                  rel={contact.action.startsWith('http') ? 'noopener noreferrer' : undefined}
                   initial={{ opacity: 0, x: 20 }}
                   animate={headerInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
@@ -233,10 +247,29 @@ export default function ContactPage() {
             </motion.h2>
           </div>
 
-          <EmptyState
-            title="Office locations coming soon"
-            description="Office locations will be listed here."
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {offices.map((office, i) => (
+              <motion.div
+                key={office.city}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+                className={`p-5 rounded-sm border ${office.type === 'Head Office' ? 'bg-navy-900 dark:bg-navy-800 border-gold-500/30' : 'bg-cream-50 dark:bg-navy-800/50 border-navy-100 dark:border-navy-700'}`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <h4 className="text-navy-900 dark:text-white font-bold text-sm">{office.city}</h4>
+                  <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm ${office.type === 'Head Office' ? 'bg-gold-500/15 text-gold-500' : office.type === 'Regional Office' ? 'bg-navy-500/15 text-navy-400' : 'bg-white/10 text-white/50 dark:bg-navy-700 dark:text-navy-300'}`}>
+                    {office.type}
+                  </span>
+                </div>
+                <p className="text-slate-400 dark:text-white/40 text-xs">{office.country}</p>
+                {office.type === 'Head Office' && (
+                  <p className="text-gold-400/70 text-xs mt-1">{office.address}</p>
+                )}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -260,10 +293,26 @@ export default function ContactPage() {
             </motion.h2>
           </div>
 
-          <EmptyState
-            title="FAQs coming soon"
-            description="Frequently asked questions will be available soon."
-          />
+          <div className="space-y-4">
+            {[
+              { q: 'What is the Springfield Centre for Peace and Humanitarian Development?', a: 'Springfield Centre (SCPHD) is a humanitarian NGO dedicated to peacebuilding, conflict resolution, and community development. We work at the intersection of peace, justice, and human dignity, primarily operating across Nigeria and Africa.' },
+              { q: 'How can I support SCPHD\'s work?', a: 'You can support us through donations, volunteering, partnerships, or by spreading awareness about our programs. Visit our Donate page or contact us directly for more information.' },
+              { q: 'Where does SCPHD operate?', a: 'SCPHD is headquartered in Abuja, Nigeria, with field offices across multiple Nigerian states including Gombe, Kaduna, Bauchi, Jos, Yola, and Makurdi. We also have regional offices in Accra (Ghana), Dar es Salaam (Tanzania), and Kampala (Uganda).' },
+              { q: 'What programs does SCPHD run?', a: 'Our key programs include the Gombe Peace Project (interfaith harmony and community peacebuilding), Coalition Building for Preventing and Countering Violent Extremism (P/CVE), and various community resilience initiatives.' },
+            ].map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className="bg-white dark:bg-navy-900 border border-navy-100 dark:border-navy-800 rounded-sm p-6"
+              >
+                <h4 className="text-navy-900 dark:text-white font-bold text-sm mb-2">{faq.q}</h4>
+                <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed">{faq.a}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
     </>

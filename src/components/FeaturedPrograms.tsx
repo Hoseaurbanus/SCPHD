@@ -1,10 +1,26 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import EmptyState from '@/components/ui/EmptyState'
 
 interface FeaturedProgramsProps {
   navigate: (p: string) => void
 }
+
+const featured = [
+  {
+    title: 'Gombe Peace Project',
+    subtitle: 'Promoting Interfaith Harmony & Community Peacebuilding',
+    description: 'A youth-led initiative founded in 2019 to promote peaceful coexistence and interfaith dialogue across Gombe State, following the tragic Easter crisis. Through community engagement, hospital visits, and grassroots advocacy, the project has become a model for peacebuilding in North-East Nigeria.',
+    status: 'Active',
+    year: '2019 \u2013 Present',
+  },
+  {
+    title: 'P/CVE Coalition Building',
+    subtitle: 'Preventing & Countering Violent Extremism',
+    description: 'In collaboration with WANEP-Nigeria, a two-day capacity-building workshop training community stakeholders in coalition building, early warning systems, and countering extremist narratives to prevent radicalisation and violence.',
+    status: 'Completed',
+    year: 'February 2023',
+  },
+]
 
 export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
   const headerRef = useRef<HTMLDivElement>(null)
@@ -55,11 +71,27 @@ export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
           </motion.button>
         </div>
 
-        <EmptyState
-          title="No featured programs available"
-          description="Programs will be displayed here once published."
-          className="bg-white rounded-sm"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {featured.map((program, i) => (
+            <motion.div
+              key={program.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.15 + i * 0.12 }}
+              className="bg-white rounded-sm border border-navy-100 p-8 card-lift"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <span className={`px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-sm ${program.status === 'Active' ? 'bg-emerald-100 text-emerald-700' : 'bg-navy-100 text-navy-600'}`}>
+                  {program.status}
+                </span>
+                <span className="text-xs text-slate-400">{program.year}</span>
+              </div>
+              <h3 className="text-navy-900 font-display text-xl font-bold mb-1">{program.title}</h3>
+              <p className="text-navy-500 text-sm mb-3">{program.subtitle}</p>
+              <p className="text-slate-500 text-sm leading-relaxed">{program.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

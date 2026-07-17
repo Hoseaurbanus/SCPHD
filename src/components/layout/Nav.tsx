@@ -53,15 +53,7 @@ export default function Nav() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-gold-500 rounded-sm flex items-center justify-center shadow-lg shadow-gold-500/30 group-hover:shadow-gold-500/50 transition-shadow">
-                <svg className="w-6 h-6 text-navy-900" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-white font-bold text-lg tracking-tight">SCPHD</span>
-                <span className="hidden sm:block text-[10px] text-gold-400 tracking-widest uppercase">Springfield Center</span>
-              </div>
+              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre for Peace and Humanitarian Development" className="h-11 w-auto rounded-sm shadow-lg group-hover:shadow-gold-500/30 transition-shadow" />
             </Link>
 
             <div className="hidden lg:flex items-center gap-1">

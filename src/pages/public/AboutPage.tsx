@@ -121,10 +121,44 @@ function TimelineSection() {
           Our Journey
         </motion.h2>
 
-        <EmptyState
-          title="Timeline coming soon"
-          description="Our organizational milestones and history will be displayed here."
-        />
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-navy-200 dark:bg-navy-700" />
+
+          {[
+            { year: '2019', title: 'Gombe Peace Project Founded', description: 'Dr. Ahmed Magem founded the Gombe Peace Project in response to the Easter crisis that led to the death of nine Boys\u2019 Brigade members. The initiative mobilised volunteers for interfaith dialogue, hospital visits, house-to-house peace advocacy, and campaigns against misinformation.' },
+            { year: '2023', title: 'WANEP-Nigeria P/CVE Training', description: 'In collaboration with the West Africa Network for Peacebuilding\u2013Nigeria, the Gombe Peace Project organised a two-day capacity-building workshop on coalition building for preventing and countering violent extremism, training community stakeholders in early warning, countering extremist narratives, and community resilience.' },
+            { year: '2026', title: 'Gombe State IT & Digital Economy Commission', description: 'Dr. Ahmed Magem was appointed Executive Director of the Gombe State Information Technology & Digital Economy Commission, a strategic role in ICT development, digital skills, youth empowerment, e-governance, and innovation ecosystem growth.' },
+          ].map((milestone, i) => (
+            <motion.div
+              key={milestone.year}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.15 }}
+              className={`relative flex items-start gap-6 mb-12 md:mb-16 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+            >
+              {/* Dot */}
+              <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-gold-500 rounded-full -translate-x-1.5 mt-1.5 z-10 ring-4 ring-white dark:ring-navy-950" />
+
+              {/* Content */}
+              <div className={`flex-1 ml-10 md:ml-0 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
+                <span className="inline-block px-3 py-1 text-xs font-bold bg-gold-500/15 text-gold-600 dark:text-gold-400 rounded-sm mb-2">
+                  {milestone.year}
+                </span>
+                <h4 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-2">
+                  {milestone.title}
+                </h4>
+                <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed">
+                  {milestone.description}
+                </p>
+              </div>
+
+              {/* Spacer for alternating layout */}
+              <div className="hidden md:block flex-1" />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -266,10 +300,40 @@ export default function AboutPage() {
             </motion.p>
           </div>
 
-          <EmptyState
-            title="Team information coming soon"
-            description="Our leadership team profiles will be available here once published by administrators."
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Dr. Ahmed Magem */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={teamInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm overflow-hidden card-lift"
+            >
+              <div className="relative h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+                <div className="w-24 h-24 rounded-full bg-gold-500/20 flex items-center justify-center">
+                  <span className="text-gold-400 font-[family-name:var(--font-display)] text-3xl font-bold">AM</span>
+                </div>
+              </div>
+              <div className="p-6">
+                <h4 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-1">
+                  Dr. Ahmed Magem
+                </h4>
+                <p className="text-gold-600 dark:text-gold-400 text-sm font-semibold mb-3">
+                  Executive Director & Founder
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm bg-gold-500/15 text-gold-600 dark:text-gold-400">Peace Ambassador</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm bg-navy-100 dark:bg-navy-700 text-navy-600 dark:text-navy-300">IVLP Alumnus</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-sm bg-navy-100 dark:bg-navy-700 text-navy-600 dark:text-navy-300">P/CVE Expert</span>
+                </div>
+                <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed mb-4">
+                  Technologist, peacebuilder, community organiser, and advocate for #Tech4Good. Founded the Gombe Peace Project in 2019, leading interfaith dialogue and community resilience initiatives across North-East Nigeria. Appointed Executive Director of the Gombe State IT & Digital Economy Commission in 2026.
+                </p>
+                <p className="text-slate-400 dark:text-white/35 text-xs">
+                  Education: Lagos State University, University of Southern California, United States Institute of Peace
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </>

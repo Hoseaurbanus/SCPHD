@@ -10,11 +10,10 @@ const footerLinks = {
   ],
   programs: [
     'Peace Education',
-    'Healthcare Access',
-    'Emergency Relief',
-    'Women Empowerment',
-    'Clean Water',
-    'Climate Action',
+    'Interfaith Dialogue',
+    'Preventing Violent Extremism',
+    'Community Resilience',
+    'Humanitarian Development',
   ],
   legal: [
     'Privacy Policy',
@@ -23,6 +22,12 @@ const footerLinks = {
     'Financial Transparency',
   ],
 }
+
+const socialLinks = [
+  { label: 'Facebook', href: 'https://www.facebook.com/scphd.ng/', icon: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z' },
+  { label: 'X', href: 'https://x.com/Springfield_NG', icon: 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' },
+  { label: 'Instagram', href: 'https://www.instagram.com/springfield_ng', icon: 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z' },
+]
 
 export default function Footer() {
   return (
@@ -38,27 +43,22 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gold-500 rounded-sm flex items-center justify-center">
-                <svg className="w-6 h-6 text-navy-900" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                </svg>
-              </div>
-              <div>
-                <span className="font-bold text-lg">SCPHD</span>
-                <span className="block text-[10px] text-gold-400 tracking-widest uppercase">Springfield Center</span>
-              </div>
+              <img src="/images/favicon/Logo.jpg" alt="Springfield Centre" className="h-11 w-auto rounded-sm" />
             </Link>
             <p className="text-sm text-white/50 leading-relaxed">
               Building peace and advancing humanitarian development worldwide.
             </p>
             <div className="flex gap-3 pt-2">
-              {['facebook', 'twitter', 'linkedin', 'instagram'].map((social) => (
+              {socialLinks.map((social) => (
                 <a
-                  key={social}
-                  href="#"
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-gold-400 hover:border-gold-500/50 hover:bg-gold-500/10 transition-all"
+                  aria-label={social.label}
                 >
-                  <span className="text-xs uppercase">{social[0]}</span>
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d={social.icon} /></svg>
                 </a>
               ))}
             </div>
@@ -93,26 +93,26 @@ export default function Footer() {
             <ul className="space-y-3 text-sm text-white/50">
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                To be updated
+                Suite 308, 3rd Floor, Anbeez Plaza, Abuja, Nigeria, 900285
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                To be updated
+                0808 047 2194
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-gold-500 mt-0.5">&#9679;</span>
-                To be updated
+                scphd.ng@gmail.com
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-red-400 mt-0.5">&#9679;</span>
-                To be updated
+                <span className="text-gold-500 mt-0.5">&#9679;</span>
+                springfield.org.ng
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} SCPHD. All rights reserved.</p>
+          <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Springfield Centre for Peace and Humanitarian Development. All rights reserved.</p>
           <div className="flex gap-6">
             {footerLinks.legal.map((link) => (
               <span key={link} className="text-xs text-white/30 hover:text-white/50 cursor-pointer transition-colors">

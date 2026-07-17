@@ -1,8 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import Button from '@/components/ui/Button'
-import EmptyState from '@/components/ui/EmptyState'
+import { articles } from '@/data/articles'
 
 export default function NewsPage() {
   const [email, setEmail] = useState('')
@@ -11,6 +10,9 @@ export default function NewsPage() {
 
   const { scrollYProgress } = useScroll()
   const bgY = useTransform(scrollYProgress, [0, 1], ['-5%', '5%'])
+
+  const featured = articles[0]
+  const recent = articles[1]
 
   return (
     <>
@@ -48,33 +50,67 @@ export default function NewsPage() {
       <section ref={headerRef} className="bg-white dark:bg-navy-900 py-20 lg:py-28 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
-            {/* Featured placeholder */}
+            {/* Featured article */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={headerInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-              className="lg:col-span-2 bg-cream-50 dark:bg-navy-800 rounded-sm overflow-hidden border border-navy-100 dark:border-navy-700"
-              style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
+              className="lg:col-span-2 bg-cream-50 dark:bg-navy-800 rounded-sm overflow-hidden border border-navy-100 dark:border-navy-700 card-lift"
             >
-              <EmptyState
-                title="No featured article"
-                description="Featured articles will appear here once published."
-              />
+              <div className="relative h-48 lg:h-56 overflow-hidden">
+                <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                  <span className="px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-sm bg-gold-500 text-navy-900">
+                    {featured.category}
+                  </span>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-xs text-slate-400 dark:text-white/35 mb-2">{featured.date}</p>
+                <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-xl font-bold mb-3 leading-snug">
+                  {featured.title}
+                </h3>
+                <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed line-clamp-3">
+                  {featured.excerpt}
+                </p>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {featured.tags.map((tag) => (
+                    <span key={tag} className="px-2 py-0.5 text-xs bg-navy-50 dark:bg-navy-700 text-navy-500 dark:text-navy-300 rounded-sm">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
-            {/* Side panel placeholder */}
+            {/* Side panel */}
             <div className="flex flex-col gap-4">
+              {/* Recent article */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={headerInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-                className="bg-cream-50 dark:bg-navy-800 rounded-sm overflow-hidden border border-navy-100 dark:border-navy-700"
-                style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}
+                className="bg-cream-50 dark:bg-navy-800 rounded-sm overflow-hidden border border-navy-100 dark:border-navy-700 card-lift"
               >
-                <EmptyState
-                  title="No recent articles"
-                  description="Recent articles will appear here."
-                />
+                <div className="relative h-32 overflow-hidden">
+                  <img src={recent.image} alt={recent.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
+                  <div className="absolute bottom-3 left-3">
+                    <span className="px-2 py-0.5 text-xs font-bold uppercase tracking-wider rounded-sm bg-navy-900/80 text-gold-400">
+                      {recent.category}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <p className="text-xs text-slate-400 dark:text-white/35 mb-1.5">{recent.date}</p>
+                  <h4 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-sm font-bold leading-snug mb-2">
+                    {recent.title}
+                  </h4>
+                  <p className="text-slate-400 dark:text-white/40 text-xs leading-relaxed line-clamp-2">
+                    {recent.excerpt}
+                  </p>
+                </div>
               </motion.div>
 
               {/* Newsletter signup */}
@@ -109,14 +145,39 @@ export default function NewsPage() {
           </div>
 
           {/* All articles grid */}
-          <EmptyState
-            title="No news articles published yet"
-            description="News and updates will appear here."
-          />
-
-          {/* Load More */}
-          <div className="text-center mt-12">
-            <Button variant="outline" size="md" disabled>Load More Articles</Button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {articles.map((article, i) => (
+              <motion.article
+                key={article.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-cream-50 dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm overflow-hidden card-lift"
+              >
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="px-2 py-0.5 text-xs font-bold uppercase tracking-wider rounded-sm bg-gold-100 dark:bg-gold-500/15 text-gold-700 dark:text-gold-400">
+                      {article.category}
+                    </span>
+                    <span className="text-xs text-slate-400 dark:text-white/35">{article.date}</span>
+                  </div>
+                  <h3 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-2 leading-snug">
+                    {article.title}
+                  </h3>
+                  <p className="text-slate-500 dark:text-white/50 text-sm leading-relaxed line-clamp-3">
+                    {article.excerpt}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {article.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 text-xs bg-navy-50 dark:bg-navy-700 text-navy-500 dark:text-navy-300 rounded-sm">
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
           </div>
         </div>
       </section>
