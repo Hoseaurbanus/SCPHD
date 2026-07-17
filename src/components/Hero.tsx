@@ -21,7 +21,7 @@ export default function Hero({ navigate }: HeroProps) {
   }, [])
 
   return (
-    <section className="relative w-full h-[85vh] min-h-[600px] overflow-x-hidden bg-navy-950">
+    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-navy-950 z-20">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
