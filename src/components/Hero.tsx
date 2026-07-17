@@ -89,7 +89,7 @@ export default function Hero({ navigate }: HeroProps) {
           {[
             { value: '100+', label: 'Partners' },
             { value: '4', label: 'Countries' },
-            { value: '2', label: 'Programs' },
+            { value: '3', label: 'Programs' },
             { value: '21', label: 'States' },
           ].map(({ value, label }, i) => (
             <div

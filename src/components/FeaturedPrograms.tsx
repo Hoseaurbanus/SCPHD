@@ -20,6 +20,13 @@ const featured = [
     status: 'Completed',
     year: 'February 2023',
   },
+  {
+    title: 'Tangale Cultural Heritage',
+    subtitle: 'Restoration, Preservation & Protection',
+    description: 'A Mellon Foundation-funded initiative to restore, preserve and protect the Tangale people\u2019s language, culinary traditions, festivals, religious diversity and settlement history in Gombe State.',
+    status: 'Completed',
+    year: '2023 \u2013 2024',
+  },
 ]
 
 export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
@@ -71,7 +78,7 @@ export default function FeaturedPrograms({ navigate }: FeaturedProgramsProps) {
           </motion.button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {featured.map((program, i) => (
             <motion.div
               key={program.title}
