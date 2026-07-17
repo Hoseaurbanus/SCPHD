@@ -42,7 +42,7 @@ export default function Hero({ navigate }: HeroProps) {
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-navy-950/80 via-navy-950/50 to-transparent" />
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-950/90 via-transparent to-navy-950/30" />
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col justify-center pt-24 pb-28">
+      <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col justify-center pt-24 pb-28">
         <div className="section-label mb-7 text-gold-500">
           SCPHD
         </div>
