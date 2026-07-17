@@ -21,7 +21,7 @@ export default function Hero({ navigate }: HeroProps) {
   }, [])
 
   return (
-    <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-navy-950">
+    <section className="relative w-full h-[85vh] min-h-[600px] overflow-x-hidden bg-navy-950">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -42,12 +42,12 @@ export default function Hero({ navigate }: HeroProps) {
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-navy-950/80 via-navy-950/50 to-transparent" />
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-navy-950/90 via-transparent to-navy-950/30" />
 
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col justify-center pt-24 pb-40">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-full flex flex-col justify-center pt-24 pb-28">
         <div className="section-label mb-7 text-gold-500">
           SCPHD
         </div>
 
-        <div className="mb-8 overflow-hidden">
+        <div className="mb-8">
           <h1 className="text-white font-display leading-[1.05] font-bold drop-shadow-lg" style={{ fontSize: 'clamp(2.6rem, 6vw, 5.5rem)' }}>
             Building Peace,<br />
             <em className="not-italic gradient-text">One Community</em><br />
