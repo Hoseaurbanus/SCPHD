@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom'
 
 const events = [
   {
-    image: '/images/events/4.jpg',
-    title: 'Community Peace Workshop',
-    date: 'Coming Soon',
-    location: 'Gombe State',
+    image: '/images/events/women-skills-1.jpg',
+    title: 'Women Skills Acquisition & Empowerment Programme',
+    date: 'Completed',
+    location: 'Billiri, Gombe State',
   },
   {
-    image: '/images/events/5.jpg',
-    title: 'Health Outreach Program',
-    date: 'Coming Soon',
-    location: 'Gombe State',
+    image: '/images/events/women-skills-3.jpg',
+    title: 'Women Skills Acquisition & Empowerment Programme',
+    date: 'Completed',
+    location: 'Billiri, Gombe State',
   },
 ]
 

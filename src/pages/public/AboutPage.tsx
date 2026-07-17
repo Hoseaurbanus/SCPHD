@@ -307,10 +307,13 @@ export default function AboutPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="bg-white dark:bg-navy-800 border border-navy-100 dark:border-navy-700 rounded-sm overflow-hidden card-lift"
             >
-              <div className="relative h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-gold-500/20 flex items-center justify-center">
-                  <span className="text-gold-400 font-[family-name:var(--font-display)] text-3xl font-bold">AM</span>
-                </div>
+              <div className="relative h-64 bg-gradient-to-br from-navy-800 to-navy-950 overflow-hidden">
+                <img
+                  src="/images/about/Ahmed.jpg"
+                  alt="Dr. Ahmed Magem"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/60 to-transparent" />
               </div>
               <div className="p-6">
                 <h4 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] text-lg font-bold mb-1">
@@ -332,6 +335,52 @@ export default function AboutPage() {
                 </p>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Activities Gallery */}
+      <section className="bg-white dark:bg-navy-900 py-20 lg:py-28 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+          <div className="text-center mb-14">
+            <div className="section-label justify-center mb-4">
+              Our Team in Action
+            </div>
+            <h2 className="text-navy-900 dark:text-white font-[family-name:var(--font-display)] font-bold leading-tight"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+            >
+              Gombe Peace Project <em className="not-italic text-navy-600 dark:text-gold-400">Activities</em>
+            </h2>
+            <p className="text-slate-500 dark:text-white/40 text-sm mt-4 max-w-lg mx-auto">
+              Team members and stakeholders at the Gombe Peace Project events in collaboration with WANEP-Nigeria.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { src: '/images/team/team-group-1.jpg', alt: 'Gombe Peace Project team with WANEP-Nigeria banner' },
+              { src: '/images/team/team-group-2.jpg', alt: 'Team members at the P/CVE coalition building workshop' },
+              { src: '/images/team/team-group-3.jpg', alt: 'Stakeholders at the Gombe Peace Project event' },
+              { src: '/images/team/team-workshop-1.jpg', alt: 'Workshop participants during the training session' },
+              { src: '/images/team/team-workshop-2.jpg', alt: 'Participants at the capacity-building workshop' },
+            ].map((photo, i) => (
+              <motion.div
+                key={photo.src}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="relative rounded-sm overflow-hidden bg-navy-100 dark:bg-navy-800 group card-lift"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
